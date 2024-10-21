@@ -1,4 +1,4 @@
-# Initial project setup
+# Initial project setup: Iteration 0
 
 [See commit message conventions](https://www.conventionalcommits.org/)
 
@@ -120,4 +120,18 @@ echo 'npx --no-install lint-staged' > .husky/pre-commit
 
 ### 3.2 Create Azure static webapp
 
-to be continued...
+a) Open Azure Tools in VS Code
+
+b) Right click on "Static Web Apps" and select "Create Static Web App..."
+
+c) Select resource group
+
+d) Enter the name of the web app
+
+e) Select "Angular" as framework
+
+f) Apply default "/" as root directory
+
+g) App distribution location: "dist/<project name>/browser
+
+Once finished, it will add a workflow file to the repo to deploy the app on azure.
