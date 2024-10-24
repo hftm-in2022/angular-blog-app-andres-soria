@@ -1,6 +1,8 @@
+### [◄ Go back to the Readme](../README.md)
+
 # Initial project setup: Iteration 0
 
-[See commit message conventions](https://www.conventionalcommits.org/)
+[**See commit message conventions for this project**](https://www.conventionalcommits.org/)
 
 ## 1. Create basic angular project
 
