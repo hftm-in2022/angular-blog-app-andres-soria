@@ -137,3 +137,15 @@ f) Apply default "/" as root directory
 g) App distribution location: "dist/<project name>/browser
 
 Once finished, it will add a workflow file to the repo to deploy the app on azure.
+
+---
+
+# Troubleshoot
+
+## GitHub related
+
+- When working with GitHub Actions and Dependabot, the azure build script can fail. This is because the Dependabot has no permission to push to azure. To fix this, go to repository settings and add a new secret for Depandabot with the same name as the secret in the secrets for "Actions" (AZURE*STATIC_WEB_APPS_API_TOKEN*&lt;Web App Name&gt;). Copy the deployment key from azure and set it as the new secrets value. Re-run scripts from the pr and it should work.
+
+## Azure related
+
+--
