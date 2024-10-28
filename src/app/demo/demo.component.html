@@ -1,0 +1,80 @@
+<div>
+  <mat-card appearance="outlined" class="example-card">
+    <mat-card-header class="example-card-title"
+      >2-way Binding example</mat-card-header
+    >
+    <mat-card-content class="example-card-content">
+      <mat-form-field appearance="outline" class="input-example">
+        <mat-label>Enter your name</mat-label>
+        <input matInput [(ngModel)]="username" placeholder="Name" />
+      </mat-form-field>
+      <mat-chip>Hello, {{ username }}!</mat-chip>
+    </mat-card-content>
+  </mat-card>
+
+  <mat-card appearance="outlined" class="example-card">
+    <mat-card-header class="example-card-title"
+      >Event binding and conditional directive example
+    </mat-card-header>
+    <mat-card-content class="example-card-content">
+      <mat-slide-toggle class="view-selector" (click)="toggleView()"
+        >Toggle Listview / Cardview</mat-slide-toggle
+      >
+      @if (isListView) {
+        <p><b>List View</b></p>
+        <mat-list>
+          @for (item of items; track item) {
+            <mat-list-item>
+              <span matListItemTitle>{{ item.name }} (ID: {{ item.id }})</span>
+              <span matListItemLine>{{ item.description }}</span>
+            </mat-list-item>
+          } @empty {
+            <mat-list-item>There are no items.</mat-list-item>
+          }
+        </mat-list>
+      } @else {
+        <p><b>Card View</b></p>
+        @for (item of items; track item) {
+          <mat-card appearance="outlined" class="item-card">
+            <mat-card-header class="item-card-title"
+              >{{ item.name }} (ID: {{ item.id }})</mat-card-header
+            >
+            <mat-card-content class="item-card-description">{{
+              item.description
+            }}</mat-card-content>
+          </mat-card>
+        }
+      }
+    </mat-card-content>
+  </mat-card>
+
+  <mat-card appearance="outlined" class="example-card">
+    <mat-card-header class="example-card-title"
+      >Switch-Case example</mat-card-header
+    >
+    <mat-card-content class="example-card-content">
+      <mat-form-field appearance="outline">
+        <mat-label>Select a color</mat-label>
+        <mat-select [(value)]="selectedColor">
+          @for (color of colors; track color) {
+            <mat-option [value]="color">{{ color }}</mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+      @switch (selectedColor) {
+        @case ("Red") {
+          <div style="color: red">You selected Red</div>
+        }
+        @case ("Green") {
+          <div style="color: green">You selected Green</div>
+        }
+        @case ("Blue") {
+          <div style="color: blue">You selected Blue</div>
+        }
+        @default {
+          <div>No color selected</div>
+        }
+      }
+    </mat-card-content>
+  </mat-card>
+</div>
