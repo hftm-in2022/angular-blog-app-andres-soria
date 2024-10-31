@@ -6,7 +6,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatMenuModule } from '@angular/material/menu';
 
-import { DemoComponent } from './demo/demo.component';
+import { DemoComponent } from './features/demo/demo.component';
+import { BlogPostListComponent } from './features/post-feed/blog-post-list/blog-post-list.component';
 
 @Component({
   selector: 'app-root',
@@ -14,11 +15,12 @@ import { DemoComponent } from './demo/demo.component';
   imports: [
     RouterOutlet,
     MatSlideToggleModule,
-    DemoComponent,
     MatIconModule,
     MatButtonModule,
     MatToolbarModule,
     MatMenuModule,
+    DemoComponent,
+    BlogPostListComponent,
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
