@@ -1,0 +1,8 @@
+<div>
+  @for (blogPostPreview of blogPostPreviews; track blogPostPreview) {
+    <app-blog-post-card
+      [blogPostPreview]="blogPostPreview"
+      class="blog-list"
+    ></app-blog-post-card>
+  }
+</div>

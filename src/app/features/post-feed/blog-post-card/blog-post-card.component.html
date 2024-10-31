@@ -1,0 +1,25 @@
+<mat-card class="blog-post-card" appearance="outlined">
+  <mat-card-header>
+    <mat-card-title class="title">{{ blogPostPreview.title }}</mat-card-title>
+    <mat-card-subtitle class="author"
+      >Author: {{ blogPostPreview.author }}</mat-card-subtitle
+    >
+  </mat-card-header>
+  <mat-card-content class="content">
+    @if (blogPostPreview.headerImageUrl) {
+      <img
+        mat-card-image
+        class="banner-image"
+        src="{{ blogPostPreview.headerImageUrl }}"
+        alt="blog post header image"
+      />
+    }
+    <p>{{ blogPostPreview.contentPreview }}</p>
+  </mat-card-content>
+  <mat-card-footer class="footer">
+    <div class="comment-preview">
+      <mat-icon class="comment-icon" fontIcon="comment"></mat-icon>
+      <p class="comment-icon">{{ blogPostPreview.comments }}</p>
+    </div>
+  </mat-card-footer>
+</mat-card>
