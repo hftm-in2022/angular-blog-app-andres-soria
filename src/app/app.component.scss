@@ -100,6 +100,18 @@ main {
   flex: 1 1 auto;
 }
 
+.toolBar {
+  display: flex;
+  width: 100%;
+  padding: 1rem;
+  background: var(--electric-violet);
+  color: white;
+}
+
+.toolBar button {
+  color: white;
+}
+
 @media screen and (max-width: 650px) {
   .content {
     flex-direction: column;

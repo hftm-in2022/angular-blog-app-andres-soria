@@ -10,7 +10,8 @@
     "lint": "ng lint",
     "format": "npx prettier --write ./src/app/*",
     "prepare": "husky",
-    "test:ci": "ng test --no-watch --no-progress --browsers=ChromeHeadless"
+    "test:ci": "ng test --no-watch --no-progress --browsers=ChromeHeadless",
+    "analyze:deps:all": "madge src/main.ts --ts-config tsconfig.json --image ./deps/_all.png"
   },
   "private": true,
   "dependencies": {
@@ -28,6 +29,7 @@
     "@commitlint/config-conventional": "^19.5.0",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
+    "zod": "^3.23.8",
     "zone.js": "~0.14.10"
   },
   "devDependencies": {
