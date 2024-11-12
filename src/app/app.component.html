@@ -1,10 +1,10 @@
-<mat-toolbar>
+<mat-toolbar class="toolBar">
   <button mat-icon-button [matMenuTriggerFor]="menu" class="example-icon">
     <mat-icon>menu</mat-icon>
   </button>
   <mat-menu #menu="matMenu">
-    <button mat-menu-item>Option 1</button>
-    <button mat-menu-item>Option 2</button>
+    <a mat-menu-item href="demo">Component demo page</a>
+    <a mat-menu-item href="overview">Blog overview</a>
   </mat-menu>
 
   <span>{{ title }}</span>
@@ -14,11 +14,4 @@
   </button>
 </mat-toolbar>
 
-<main class="main">
-  <div class="content">
-    <!-- <app-demo></app-demo> -->
-    <app-blog-post-list></app-blog-post-list>
-  </div>
-</main>
-
-<router-outlet />
+<router-outlet></router-outlet>

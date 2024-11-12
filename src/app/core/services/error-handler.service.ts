@@ -14,7 +14,6 @@ export class AppErrorHandler implements ErrorHandler {
   }
 
   postErrorData(error: Error, message: string) {
-    // For now, we will just log it to the console
     console.log('Error Message ->', message);
     console.log('Error Stack ->', error.stack);
   }

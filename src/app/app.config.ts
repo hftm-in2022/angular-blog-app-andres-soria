@@ -1,19 +1,15 @@
 import { ApplicationConfig, provideZoneChangeDetection } from '@angular/core';
-import { provideRouter } from '@angular/router';
+import { provideRouter, withComponentInputBinding } from '@angular/router';
 
-import { routes } from './app.routes';
+import { APP_ROUTES } from './app.routes';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { provideHttpClient } from '@angular/common/http';
-import { BlogApiService } from './core/services/blog-api.service';
-import { AppErrorHandler } from './core/services/error-handler.service';
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideZoneChangeDetection({ eventCoalescing: true }),
-    provideRouter(routes),
+    provideRouter(APP_ROUTES, withComponentInputBinding()),
     provideAnimationsAsync(),
     provideHttpClient(),
-    BlogApiService,
-    AppErrorHandler,
   ],
 };
