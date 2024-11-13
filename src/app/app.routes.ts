@@ -35,9 +35,16 @@ export const APP_ROUTES: Routes = [
     path: 'detail',
     loadChildren: () =>
       import('./features/blog-detail-page/blog-detail-page.routes'),
+    resolve: { model: blogDetailResolver },
   },
   {
     path: 'demo',
     loadChildren: () => import('./features/demo/demo.routes'),
+  },
+  {
+    path: '**',
+    pathMatch: 'full',
+    loadChildren: () =>
+      import('./features/page-not-found/page-not-found.routes'),
   },
 ];
