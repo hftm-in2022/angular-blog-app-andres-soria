@@ -3,7 +3,6 @@ import { BlogOverviewCardComponent } from '../../shared/blog-overview-card/blog-
 import { Entries } from '../../core/services/blog-api.service';
 
 @Component({
-  standalone: true,
   selector: 'app-blog-overview-page',
   templateUrl: './blog-overview-page.component.html',
   styleUrls: ['./blog-overview-page.component.scss'],
