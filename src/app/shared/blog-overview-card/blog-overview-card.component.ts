@@ -18,7 +18,6 @@ export interface Blog {
 
 @Component({
   selector: 'app-blog-overview-card',
-  standalone: true,
   imports: [MatButtonModule, MatCardModule, MatButtonToggleModule, MatIcon],
   templateUrl: './blog-overview-card.component.html',
   styleUrl: './blog-overview-card.component.scss',

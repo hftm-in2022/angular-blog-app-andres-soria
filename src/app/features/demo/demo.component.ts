@@ -11,7 +11,6 @@ import { MatChip } from '@angular/material/chips';
 
 @Component({
   selector: 'app-demo',
-  standalone: true,
   templateUrl: './demo.component.html',
   styleUrl: './demo.component.scss',
   imports: [
