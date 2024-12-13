@@ -21,8 +21,8 @@ This project is intended to implement the contents of the course IN305 "Web-Appl
 # Change Log
 
 - [x] Initial commit with angular project template
+- [x] Create demo app
 
 # Roadmap
 
-- [ ] Create demo app
 - [ ] Trying to not get insane by doing frontend stuff
