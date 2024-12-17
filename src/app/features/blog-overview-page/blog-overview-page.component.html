@@ -1,8 +1,8 @@
 <div class="blog-overview-container">
-  <h4>{{ pageTitle }}</h4>
-  <div class="blog-list">
-    @for (blog of model.data; track blog.id) {
-      <app-blog-overview-card [blog]="blog"></app-blog-overview-card>
-    }
-  </div>
+  @for (blog of model.data; track blog.id) {
+    <app-blog-overview-card
+      [blog]="blog"
+      [routerLink]="['/detail/', blog.id]"
+    ></app-blog-overview-card>
+  }
 </div>
