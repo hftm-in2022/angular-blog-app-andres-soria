@@ -18,19 +18,11 @@ export interface Blog {
 
 @Component({
   selector: 'app-blog-overview-card',
+  standalone: true,
   imports: [MatButtonModule, MatCardModule, MatButtonToggleModule, MatIcon],
   templateUrl: './blog-overview-card.component.html',
   styleUrl: './blog-overview-card.component.scss',
 })
 export class BlogOverviewCardComponent {
-  // model = input.required<Blog>();
-  // index = input.required<number>();
-  // routeCommands = input.required<[string, number]>();
-
-  // likeBlog = output<{
-  //   id: number;
-  //   likedByMe: boolean;
-  // }>();
-
   @Input({ required: true }) blog!: Blog;
 }

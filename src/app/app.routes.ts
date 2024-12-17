@@ -27,17 +27,23 @@ export const APP_ROUTES: Routes = [
   },
   {
     path: 'overview',
-    loadChildren: () =>
-      import('./features/blog-overview-page/blog-overview-page.routes'),
+    loadComponent: () =>
+      import('./features/blog-overview-page/blog-overview-page.component').then(
+        (c) => c.BlogOverviewPageComponent,
+      ),
     resolve: { model: blogPostsResolver },
   },
   {
-    path: 'detail',
-    loadChildren: () =>
-      import('./features/blog-detail-page/blog-detail-page.routes'),
+    path: 'detail/:id',
+    loadComponent: () =>
+      import('./features/blog-detail-page/blog-detail-page.component').then(
+        (c) => c.BlogDetailPageComponent,
+      ),
+    resolve: { model: blogDetailResolver },
   },
   {
     path: 'demo',
-    loadChildren: () => import('./features/demo/demo.routes'),
+    loadComponent: () =>
+      import('./features/demo/demo.component').then((c) => c.DemoComponent),
   },
 ];
