@@ -55,9 +55,16 @@ export const APP_ROUTES: Routes = [
     resolve: { model: blogDetailResolver },
   },
   {
+    path: 'add',
+    loadComponent: () =>
+      import('./features/add-blog-page/add-blog-page.component').then(
+        (c) => c.AddBlogPageComponent,
+      ),
+    canActivate: [AuthenticationGuard],
+  },
+  {
     path: 'demo',
     loadComponent: () =>
       import('./features/demo/demo.component').then((c) => c.DemoComponent),
-    canActivate: [AuthenticationGuard],
   },
 ];

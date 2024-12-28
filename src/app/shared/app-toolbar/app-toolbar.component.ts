@@ -34,7 +34,7 @@ export class AppToolbarComponent {
   }
 
   logout() {
-    this.oidcSecurityService.logoff();
+    this.oidcSecurityService.logoff().subscribe();
   }
 
   constructor(private oidcSecurityService: OidcSecurityService) {
