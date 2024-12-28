@@ -1,22 +1,33 @@
 import { inject } from '@angular/core';
 import { ResolveFn, Routes } from '@angular/router';
-import { lastValueFrom } from 'rxjs';
+import { finalize, lastValueFrom } from 'rxjs';
 import {
   BlogApiService,
   BlogDetails,
   Entries,
 } from './core/services/blog-api.service';
+import { LoadingStateService } from './core/services/loading-state.service';
 
 export const blogPostsResolver: ResolveFn<Entries> = async () => {
   const blogApiService = inject(BlogApiService);
-  return await lastValueFrom(blogApiService.getAllPosts());
+  const loadingService = inject(LoadingStateService);
+  loadingService.setLoadingState(true);
+  return await lastValueFrom(
+    blogApiService
+      .getAllPosts()
+      .pipe(finalize(() => loadingService.setLoadingState(false))),
+  );
 };
 
 export const blogDetailResolver: ResolveFn<BlogDetails> = (route) => {
   const blogApiService = inject(BlogApiService);
   const idParam = route.paramMap.get('id');
   const blogId = Number(idParam);
-  return blogApiService.getBlogById(blogId);
+  const loadingService = inject(LoadingStateService);
+  loadingService.setLoadingState(true);
+  return blogApiService
+    .getBlogById(blogId)
+    .pipe(finalize(() => loadingService.setLoadingState(false)));
 };
 
 export const APP_ROUTES: Routes = [
