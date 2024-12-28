@@ -7,6 +7,7 @@ import {
   Entries,
 } from './core/services/blog-api.service';
 import { LoadingStateService } from './core/services/loading-state.service';
+import { AuthenticationGuard } from './core/auth/authentication.guard';
 
 export const blogPostsResolver: ResolveFn<Entries> = async () => {
   const blogApiService = inject(BlogApiService);
@@ -43,6 +44,7 @@ export const APP_ROUTES: Routes = [
         (c) => c.BlogOverviewPageComponent,
       ),
     resolve: { model: blogPostsResolver },
+    runGuardsAndResolvers: 'always',
   },
   {
     path: 'detail/:id',
@@ -56,5 +58,6 @@ export const APP_ROUTES: Routes = [
     path: 'demo',
     loadComponent: () =>
       import('./features/demo/demo.component').then((c) => c.DemoComponent),
+    canActivate: [AuthenticationGuard],
   },
 ];
