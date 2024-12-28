@@ -6,6 +6,8 @@ Simple angular web application hosted on Azure Static Web Apps.
 
 This project is intended to implement the contents of the course IN305 "Web-Applikationen".
 
+[Link to the Webapp](https://angular-blog-app-andres-soria.web.app/)
+
 <br>
 <br>
 
