@@ -23,10 +23,8 @@ import { OidcSecurityService } from 'angular-auth-oidc-client';
 })
 export class AppToolbarComponent {
   title = 'Angular Material Blog-App';
-
   userName = signal<string | null>(null);
   isAuthenticated = signal<boolean>(false);
-
   destroyRef = inject(DestroyRef);
 
   login() {
