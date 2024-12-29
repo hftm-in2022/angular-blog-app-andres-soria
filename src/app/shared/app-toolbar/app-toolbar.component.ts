@@ -7,6 +7,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { OidcSecurityService } from 'angular-auth-oidc-client';
+import { MatChip } from '@angular/material/chips';
 
 @Component({
   selector: 'app-toolbar',
@@ -17,6 +18,7 @@ import { OidcSecurityService } from 'angular-auth-oidc-client';
     MatButtonModule,
     MatToolbarModule,
     MatMenuModule,
+    MatChip,
   ],
   templateUrl: './app-toolbar.component.html',
   styleUrl: './app-toolbar.component.scss',
@@ -26,6 +28,7 @@ export class AppToolbarComponent {
   userName = signal<string | null>(null);
   isAuthenticated = signal<boolean>(false);
   destroyRef = inject(DestroyRef);
+  userRole = signal<string | null>(null);
 
   login() {
     this.oidcSecurityService.authorize();
@@ -43,13 +46,16 @@ export class AppToolbarComponent {
         this.isAuthenticated.set(isAuthenticated);
 
         if (isAuthenticated) {
-          this.oidcSecurityService.userData$.subscribe((userData) => {
+          this.oidcSecurityService.userData$.subscribe((loginResponse) => {
             this.userName.set(
-              userData?.userData?.preferred_username || 'Spongebob',
+              loginResponse?.userData?.preferred_username || '...',
             );
+
+            this.userRole.set(loginResponse?.userData?.role || 'N/A');
           });
         } else {
           this.userName.set(null);
+          this.userRole.set(null);
         }
       });
   }

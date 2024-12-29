@@ -1,11 +1,4 @@
 <div class="blog-overview-container">
-  <mat-chip>
-    <a mat-fab extended routerLink="/add">
-      <mat-icon>add_notes</mat-icon>
-      Add post
-    </a>
-  </mat-chip>
-
   @for (blog of model.data; track blog.id) {
     <app-blog-overview-card
       [blog]="blog"
