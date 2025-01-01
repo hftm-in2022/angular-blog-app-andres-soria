@@ -6,7 +6,11 @@
   @if (isAuthenticated) {
     <div class="user-info-container">
       @if (hasUserRoleOnly) {
-        <button mat-flat-button class="toolbar-button" [routerLink]="['/add']">
+        <button
+          mat-flat-button
+          class="toolbar-button"
+          [routerLink]="['/add-blog']"
+        >
           <mat-icon>add</mat-icon>
           Add new post
         </button>
@@ -25,13 +29,12 @@
           Account
         </button>
         <mat-divider></mat-divider>
-        <button (click)="logout()" mat-menu-item>
+        <button (click)="logout()" mat-menu-item class="logout-button">
           <mat-icon>logout</mat-icon>
           Logout
         </button>
       </mat-menu>
     </div>
-
   } @else {
     <button
       mat-flat-button

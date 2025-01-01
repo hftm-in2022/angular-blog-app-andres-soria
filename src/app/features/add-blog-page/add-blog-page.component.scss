@@ -1,0 +1,96 @@
+@import "../../../styles.scss";
+
+:host {
+  .form-card-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    padding: 20px;
+  }
+
+  .form-card {
+    width: 100%;
+    max-width: 800px;
+    margin: 40px auto;
+    background-color: $background-card;
+    border-radius: 12px;
+    box-shadow: 0 6px 24px $shadow-card;
+    padding: 20px;
+    font-family: $font-secondary;
+
+    .form-card-title {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 1rem;
+      font-size: $font-large;
+      font-weight: $font-heavy;
+      color: $color-text-dark;
+      margin-bottom: 1rem;
+    }
+
+    .form-card-content {
+      display: flex;
+      flex-direction: column;
+      margin-top: 1rem;
+      font-size: $font-regular;
+      color: $color-text-medium;
+
+      .form-group {
+        margin-bottom: 15px;
+
+        label {
+          display: block;
+          font-weight: $font-heavy;
+          margin-bottom: 5px;
+        }
+
+        .form-control {
+          width: 100%;
+          padding: 10px;
+          font-size: $font-regular;
+          border: 1px solid $border-color;
+          border-radius: 8px;
+          @include transition(border-color);
+
+          &:focus {
+            border-color: $color-primary;
+            outline: none;
+          }
+        }
+
+        textarea.form-control {
+          resize: vertical;
+        }
+      }
+
+      .btn {
+        padding: 10px 20px;
+        background-color: $color-primary;
+        color: $color-text-light;
+        border: none;
+        border-radius: 8px;
+        font-size: $font-regular;
+        font-weight: $font-heavy;
+        cursor: pointer;
+        @include transition(background-color, transform);
+
+        &:hover {
+          background-color: lighten($color-primary, 10%);
+        }
+
+        &:disabled {
+          background-color: $color-text-muted;
+          cursor: not-allowed;
+        }
+      }
+    }
+
+    .form-actions {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 20px;
+    }
+  }
+}

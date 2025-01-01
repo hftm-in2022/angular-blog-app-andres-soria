@@ -31,7 +31,7 @@ const initialState: LoadingState = {
   providedIn: 'root',
 })
 export class LoadingStateService extends StateService<LoadingState> {
-  initialState = signal(true);
+  initialState = signal(false);
 
   constructor() {
     super(initialState);

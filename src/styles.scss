@@ -1,13 +1,107 @@
 /* You can add global styles to this file, and also import other style files */
 
+// html,
+// body {
+//   height: 100%;
+// }
+
+// body {
+//   margin: 0;
+//   font-family: Roboto, "Helvetica Neue", sans-serif;
+//   background: var(--mat-sys-surface);
+//   color: var(--mat-sys-on-surface);
+// }
+
+/* Global Styles and Variables */
+
+/* Fonts */
+$font-primary: "Roboto", "Helvetica Neue", sans-serif;
+$font-secondary: "Inter", sans-serif;
+$font-small: 0.9em;
+$font-regular: 1.1em;
+$font-large: 2em;
+$font-heavy: 600;
+
+/* Colors */
+$color-primary: #324e85;
+$color-secondary: lighten($color-primary, 10%);
+$color-text-light: #ffffff;
+$color-text-dark: #333333;
+$color-text-medium: #555555;
+$color-text-muted: #888888;
+$color-highlight: $color-primary;
+$icon-color-light: #777777;
+
+/* Backgrounds and Shadows */
+$background-light: #f7f8fc;
+$background-card: #ffffff;
+$shadow-card: rgba(0, 0, 0, 0.2);
+
+/* Borders */
+$border-color: #e0e0e0;
+$border-light: #ddd;
+
+/* Mixins */
+@mixin center-flex {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@mixin transition($property, $duration: 0.3s) {
+  transition: #{$property} #{$duration};
+}
+
+/* Global Resets */
 html,
 body {
   height: 100%;
+  margin: 0;
+  font-family: $font-primary;
 }
 
-body {
-  margin: 0;
-  font-family: Roboto, "Helvetica Neue", sans-serif;
-  background: var(--mat-sys-surface);
-  color: var(--mat-sys-on-surface);
+/* Utility Classes */
+.text-center {
+  text-align: center;
+}
+
+.hidden {
+  display: none;
+}
+
+/* Shared Layouts */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 16px;
+}
+
+/* Button Styles */
+.button-primary {
+  display: inline-block;
+  padding: 12px 24px;
+  background-color: $color-primary;
+  color: $color-text-light;
+  border: 2px solid darken($color-primary, 15%);
+  border-radius: 8px;
+  font-size: $font-regular;
+  font-weight: $font-heavy;
+  text-transform: uppercase;
+  cursor: pointer;
+  text-align: center;
+  @include transition(background-color, transform);
+
+  &:hover {
+    background-color: lighten($color-primary, 10%);
+    transform: scale(1.05);
+  }
+
+  &:active {
+    transform: scale(1);
+  }
+
+  &:disabled {
+    background-color: $color-text-muted;
+    cursor: not-allowed;
+  }
 }
