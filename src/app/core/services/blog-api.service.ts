@@ -45,18 +45,53 @@ export type Blog = z.infer<typeof BlogSchema>;
 export type Entries = z.infer<typeof EntriesSchema>;
 export type BlogDetails = z.infer<typeof BlogDetailsSchema>;
 
+/**
+ * Service to interact with the blog API.
+ *
+ * @remarks
+ * This service provides methods to fetch all blog posts and fetch a specific blog post by its ID.
+ *
+ * @example
+ * ```typescript
+ * constructor(private blogApiService: BlogApiService) {}
+ *
+ * this.blogApiService.getAllPosts().subscribe(posts => {
+ *   console.log(posts);
+ * });
+ *
+ * this.blogApiService.getBlogById(1).subscribe(blog => {
+ *   console.log(blog);
+ * });
+ * ```
+ */
 @Injectable({
   providedIn: 'root',
 })
 export class BlogApiService {
+  /**
+   * Creates an instance of BlogApiService.
+   *
+   * @param http - The HTTP client used to make requests.
+   */
   constructor(private http: HttpClient) {}
 
+  /**
+   * Fetches all blog posts from the API.
+   *
+   * @returns An observable of the list of blog entries.
+   */
   getAllPosts(): Observable<Entries> {
     return this.http
       .get<Entries>(`${environment.serviceUrl}/entries`)
       .pipe(map((entries) => EntriesSchema.parse(entries)));
   }
 
+  /**
+   * Fetches a specific blog post by its ID.
+   *
+   * @param id - The ID of the blog post to fetch.
+   * @returns An observable of the blog post details.
+   */
   getBlogById(id: number): Observable<BlogDetails> {
     return this.http
       .get<BlogDetails>(`${environment.serviceUrl}/entries/${id}`)

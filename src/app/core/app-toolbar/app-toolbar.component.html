@@ -1,0 +1,45 @@
+<mat-toolbar class="toolBar">
+  <h4>{{ title }}</h4>
+
+  <span class="spacer"></span>
+
+  @if (isAuthenticated) {
+    <div class="user-info-container">
+      @if (hasUserRoleOnly) {
+        <button mat-flat-button class="toolbar-button" [routerLink]="['/add']">
+          <mat-icon>add</mat-icon>
+          Add new post
+        </button>
+      }
+      <button
+        mat-flat-button
+        [matMenuTriggerFor]="menu"
+        class="toolbar-button user-info-button"
+      >
+        <mat-icon>person</mat-icon>
+        {{ userData?.preferred_username }}
+      </button>
+      <mat-menu #menu="matMenu" yPosition="below" xPosition="before">
+        <button mat-menu-item disabled="true">
+          <mat-icon>settings</mat-icon>
+          Account
+        </button>
+        <mat-divider></mat-divider>
+        <button (click)="logout()" mat-menu-item>
+          <mat-icon>logout</mat-icon>
+          Logout
+        </button>
+      </mat-menu>
+    </div>
+
+  } @else {
+    <button
+      mat-flat-button
+      (click)="login()"
+      class="toolbar-button login-button"
+    >
+      <mat-icon>login</mat-icon>
+      Login
+    </button>
+  }
+</mat-toolbar>
