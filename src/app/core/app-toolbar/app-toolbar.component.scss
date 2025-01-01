@@ -1,0 +1,45 @@
+:host {
+  .toolBar {
+    display: flex;
+    width: 100%;
+    padding: 1rem;
+    background: var(--gray-700);
+    color: white;
+
+    .toolbar-button {
+      font-size: medium;
+      border: none;
+      padding: 0.5rem 1rem;
+      border-radius: 0.5rem;
+      cursor: pointer;
+    }
+
+    .login-button {
+      color: white;
+      background-color: transparent;
+    }
+
+    .user-info-button {
+      color: white;
+      font-style: italic;
+      background-color: transparent;
+    }
+
+    .user-info-container {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    @media screen and (max-width: 650px) {
+      .content {
+        flex-direction: column;
+        width: max-content;
+      }
+    }
+
+    .spacer {
+      flex: 1 1 auto;
+    }
+  }
+}

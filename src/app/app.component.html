@@ -1,4 +1,11 @@
-<app-toolbar></app-toolbar>
+<!-- Using emitter for event callbacks -->
+<app-toolbar
+  [isAuthenticated]="
+    (authenticationStateService.loginResponse$ | async)!.isAuthenticated
+  "
+  [userData]="(authenticationStateService.loginResponse$ | async)?.userData"
+  (authenticateEmitter)="manageAuthentication($event)"
+></app-toolbar>
 
 @if (isLoading()) {
   <mat-progress-bar mode="indeterminate"></mat-progress-bar>
