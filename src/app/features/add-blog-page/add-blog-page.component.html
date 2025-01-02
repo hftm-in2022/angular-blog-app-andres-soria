@@ -1,22 +1,23 @@
-<div class="form-card-container">
-  <button mat-flat-button [routerLink]="['/overview']">
-    <mat-icon>arrow_back</mat-icon>
-    Go back
+<div class="container">
+  <button class="btn-primary-animated" [routerLink]="['/overview']">
+    <span class="btn-content">
+      <mat-icon>arrow_back</mat-icon>
+      <span>Back to overview</span>
+    </span>
   </button>
-
   <mat-card appearance="outlined" class="form-card">
     <mat-card-header class="form-card-title">
-      <mat-icon>add_circle</mat-icon>
-      Create new post
+      <span class="align-center justify-center gap-4">
+        <mat-icon>add_circle</mat-icon>
+        <span class="fs-large fw-bold">Create new post</span>
+      </span>
     </mat-card-header>
-
     <mat-divider></mat-divider>
-
     <mat-card-content>
       <form
         [formGroup]="blogForm"
         (ngSubmit)="onSubmit()"
-        class="form-card-content"
+        class="form-card-content gap-4"
       >
         <mat-form-field appearance="outline" class="form-control">
           <mat-label>Title</mat-label>
@@ -45,15 +46,26 @@
             <mat-error>{{ contentErrorMessage() }}</mat-error>
           }
         </mat-form-field>
-
         <div class="form-actions">
-          <button mat-flat-button type="button" (click)="blogForm.reset()">
-            <mat-icon>restart_alt</mat-icon>
-            Reset input
+          <button
+            type="button"
+            class="btn-tertiary outlined"
+            (click)="blogForm.reset()"
+          >
+            <span class="btn-content">
+              <mat-icon>restart_alt</mat-icon>
+              <span>Reset input</span>
+            </span>
           </button>
-          <button mat-flat-button type="submit" [disabled]="blogForm.invalid">
-            <mat-icon>send</mat-icon>
-            Publish post
+          <button
+            type="submit"
+            class="btn-primary-animated"
+            [disabled]="blogForm.invalid"
+          >
+            <span class="btn-content">
+              <mat-icon>send</mat-icon>
+              <span>Publish post</span>
+            </span>
           </button>
         </div>
       </form>

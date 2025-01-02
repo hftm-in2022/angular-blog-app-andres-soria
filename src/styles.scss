@@ -1,47 +1,91 @@
-/* You can add global styles to this file, and also import other style files */
-
-// html,
-// body {
-//   height: 100%;
-// }
-
-// body {
-//   margin: 0;
-//   font-family: Roboto, "Helvetica Neue", sans-serif;
-//   background: var(--mat-sys-surface);
-//   color: var(--mat-sys-on-surface);
-// }
-
-/* Global Styles and Variables */
-
-/* Fonts */
 $font-primary: "Roboto", "Helvetica Neue", sans-serif;
-$font-secondary: "Inter", sans-serif;
-$font-small: 0.9em;
-$font-regular: 1.1em;
-$font-large: 2em;
-$font-heavy: 600;
+$lighten: 8%;
+$color-toolbar: #2c3e50;
 
-/* Colors */
-$color-primary: #324e85;
-$color-secondary: lighten($color-primary, 10%);
-$color-text-light: #ffffff;
-$color-text-dark: #333333;
-$color-text-medium: #555555;
-$color-text-muted: #888888;
-$color-highlight: $color-primary;
-$icon-color-light: #777777;
+$color-primary: #8e44ad;
+$color-primary-lighten: lighten($color-primary, $lighten);
 
-/* Backgrounds and Shadows */
-$background-light: #f7f8fc;
-$background-card: #ffffff;
-$shadow-card: rgba(0, 0, 0, 0.2);
+$color-secondary: #16a085;
+$color-secondary-lighten: lighten($color-secondary, $lighten);
 
-/* Borders */
-$border-color: #e0e0e0;
-$border-light: #ddd;
+$color-tertiary: #7f8c8d;
+$color-tertiary-lighten: lighten($color-tertiary, $lighten);
 
-/* Mixins */
+$color-danger: #c0392b;
+$color-info: #3498db;
+$color-text-muted: #bdc3c7;
+$shadow-card: rgba(0, 0, 0, 0.5);
+
+$font-size-small: 0.75rem;
+$font-size-regular: 1rem;
+$font-size-large: 1.5rem;
+
+$default-border-radius: 0.4em;
+
+$default-gap: 4px;
+
+@media (min-width: 768px) {
+  $font-size-small: 1rem;
+  $font-size-regular: 1.125rem;
+  $font-size-large: 1.5rem;
+}
+
+@mixin button {
+  border: none;
+  z-index: 1;
+  color: #fff;
+  border-radius: $default-border-radius;
+  padding: 10px 25px;
+  font-family: $font-primary;
+  font-size: $font-size-regular;
+  transition: all 0.3s ease;
+  position: relative;
+  display: inline-block;
+  outline: none;
+  cursor: pointer;
+}
+
+@mixin button-disabled {
+  background-color: $color-text-muted;
+  cursor: not-allowed;
+  transition: none;
+
+  &:hover,
+  &:focus,
+  &:hover:after,
+  &:focus:after {
+    transition: none;
+    background-color: $color-text-muted;
+  }
+}
+
+@mixin button-active {
+  top: 1px;
+}
+
+@mixin button-outlined($color) {
+  background: transparent;
+  color: $color;
+  box-shadow: inset 0 0 0 2px $color;
+}
+
+@mixin button-animated-after {
+  position: absolute;
+  content: "";
+  width: 0;
+  height: 100%;
+  top: 0;
+  right: 0;
+  z-index: -1;
+  border-radius: $default-border-radius;
+  transition: all 0.3s ease;
+}
+
+@mixin button-animated-hover-after {
+  left: 0;
+  width: 100%;
+}
+
 @mixin center-flex {
   display: flex;
   justify-content: center;
@@ -52,7 +96,6 @@ $border-light: #ddd;
   transition: #{$property} #{$duration};
 }
 
-/* Global Resets */
 html,
 body {
   height: 100%;
@@ -60,46 +103,205 @@ body {
   font-family: $font-primary;
 }
 
-/* Utility Classes */
-.text-center {
-  text-align: center;
+.fs-small {
+  font-size: $font-size-small;
+}
+
+.fs-regular {
+  font-size: $font-size-regular;
+}
+
+.fs-large {
+  font-size: $font-size-large;
+}
+
+.fw-bold {
+  font-weight: bold;
+}
+
+.fw-light {
+  font-weight: lighter;
 }
 
 .hidden {
   display: none;
 }
 
-/* Shared Layouts */
 .container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  padding: 20px;
 }
 
-/* Button Styles */
-.button-primary {
-  display: inline-block;
-  padding: 12px 24px;
-  background-color: $color-primary;
-  color: $color-text-light;
-  border: 2px solid darken($color-primary, 15%);
-  border-radius: 8px;
-  font-size: $font-regular;
-  font-weight: $font-heavy;
-  text-transform: uppercase;
-  cursor: pointer;
-  text-align: center;
-  @include transition(background-color, transform);
+.spacer {
+  flex: 1 1 auto;
+}
 
+.btn-content {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 0.4em;
+}
+
+.align-center {
+  display: flex;
+  align-items: center;
+}
+
+.justify-center {
+  display: flex;
+  justify-content: center;
+}
+
+.gap-1 {
+  gap: $default-gap;
+}
+
+.gap-2 {
+  gap: $default-gap * 2;
+}
+
+.gap-3 {
+  gap: $default-gap * 3;
+}
+
+.gap-4 {
+  gap: $default-gap * 4;
+}
+
+.fullwidth {
+  width: 100%;
+}
+
+.fullheight {
+  height: 100%;
+}
+
+.btn-primary {
+  @include button;
+  background: $color-primary;
   &:hover {
-    background-color: lighten($color-primary, 10%);
-    transform: scale(1.05);
+    color: #fff;
+    background-color: $color-primary-lighten;
   }
-
   &:active {
-    transform: scale(1);
+    @include button-active;
   }
+  &:disabled {
+    @include button-disabled;
+  }
+  &.outlined {
+    @include button-outlined($color-primary);
+    &:hover {
+      color: #fff;
+      background: $color-primary;
+    }
+  }
+}
+.btn-primary-animated {
+  @include button;
+  background: $color-primary;
+  &:after {
+    @include button-animated-after;
+    background-color: $color-primary-lighten;
+  }
+  &:hover {
+    color: #fff;
+  }
+  &:hover:after {
+    @include button-animated-hover-after;
+  }
+  &:active {
+    @include button-active;
+  }
+  &:disabled:active,
+  &:disabled {
+    @include button-disabled;
+  }
+}
 
+.btn-secondary {
+  @include button;
+  background: $color-secondary;
+  &:hover {
+    color: #fff;
+    background-color: $color-secondary-lighten;
+  }
+  &:active {
+    @include button-active;
+  }
+  &:disabled {
+    background-color: $color-text-muted;
+    cursor: not-allowed;
+  }
+  &.outlined {
+    @include button-outlined($color-secondary);
+    &:hover {
+      color: #fff;
+      background: $color-secondary;
+    }
+  }
+}
+.btn-secondary-animated {
+  @include button;
+  background: $color-secondary;
+  &:after {
+    @include button-animated-after;
+    background-color: $color-secondary-lighten;
+  }
+  &:hover {
+    color: #fff;
+  }
+  &:hover:after {
+    @include button-animated-hover-after;
+  }
+  &:active {
+    @include button-active;
+  }
+}
+
+.btn-tertiary {
+  @include button;
+  background: $color-tertiary;
+  &:hover {
+    color: #fff;
+    background-color: $color-tertiary-lighten;
+  }
+  &:active {
+    @include button-active;
+  }
+  &:disabled {
+    background-color: $color-text-muted;
+    cursor: not-allowed;
+  }
+  &.outlined {
+    @include button-outlined($color-tertiary);
+    &:hover {
+      color: #fff;
+      background: $color-tertiary;
+    }
+  }
+}
+.btn-tertiary-animated {
+  @include button;
+  background: $color-tertiary;
+  &:after {
+    @include button-animated-after;
+    background-color: $color-tertiary-lighten;
+  }
+  &:hover {
+    color: #fff;
+  }
+  &:hover:after {
+    @include button-animated-hover-after;
+  }
+  &:active {
+    @include button-active;
+  }
   &:disabled {
     background-color: $color-text-muted;
     cursor: not-allowed;

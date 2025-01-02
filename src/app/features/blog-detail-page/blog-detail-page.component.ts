@@ -5,6 +5,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
+import { RouterLink } from '@angular/router';
 
 interface BlogPost {
   id: number;
@@ -37,6 +38,7 @@ interface Comment {
     MatInputModule,
     MatButtonModule,
     DatePipe,
+    RouterLink,
   ],
   templateUrl: './blog-detail-page.component.html',
   styleUrl: './blog-detail-page.component.scss',
