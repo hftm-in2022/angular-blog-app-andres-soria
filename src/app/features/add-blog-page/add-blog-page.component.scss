@@ -1,0 +1,64 @@
+@import "../../../styles.scss";
+
+:host {
+  .form-card-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    padding: 20px;
+  }
+
+  .form-card {
+    width: 100%;
+    max-width: 800px;
+    margin: 40px auto;
+    border-radius: 12px;
+    padding: 20px;
+
+    .form-card-title {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    .form-card-content {
+      display: flex;
+      flex-direction: column;
+      margin-top: 1rem;
+
+      .form-group {
+        margin-bottom: 15px;
+
+        label {
+          display: block;
+          margin-bottom: 5px;
+        }
+
+        .form-control {
+          width: 100%;
+          padding: 10px;
+          border-radius: 8px;
+          @include transition(border-color);
+
+          &:focus {
+            border-color: $color-primary;
+            outline: none;
+          }
+        }
+
+        textarea .form-control {
+          resize: vertical;
+        }
+      }
+    }
+
+    .form-actions {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 20px;
+    }
+  }
+}

@@ -6,18 +6,18 @@
   @if (isAuthenticated) {
     <div class="user-info-container">
       @if (hasUserRoleOnly) {
-        <button mat-flat-button class="toolbar-button" [routerLink]="['/add']">
-          <mat-icon>add</mat-icon>
-          Add new post
+        <button class="btn-primary-animated" [routerLink]="['/add-blog']">
+          <span class="btn-content">
+            <mat-icon>add</mat-icon>
+            <span>Add Blog</span>
+          </span>
         </button>
       }
-      <button
-        mat-flat-button
-        [matMenuTriggerFor]="menu"
-        class="toolbar-button user-info-button"
-      >
-        <mat-icon>person</mat-icon>
-        {{ userData?.preferred_username }}
+      <button [matMenuTriggerFor]="menu" class="btn-secondary">
+        <span class="btn-content">
+          <mat-icon>person</mat-icon>
+          <span>{{ userData?.preferred_username }}</span>
+        </span>
       </button>
       <mat-menu #menu="matMenu" yPosition="below" xPosition="before">
         <button mat-menu-item disabled="true">
@@ -27,19 +27,16 @@
         <mat-divider></mat-divider>
         <button (click)="logout()" mat-menu-item>
           <mat-icon>logout</mat-icon>
-          Logout
+          <span>Logout</span>
         </button>
       </mat-menu>
     </div>
-
   } @else {
-    <button
-      mat-flat-button
-      (click)="login()"
-      class="toolbar-button login-button"
-    >
-      <mat-icon>login</mat-icon>
-      Login
+    <button (click)="login()" class="btn-primary-animated">
+      <span class="btn-content">
+        <mat-icon>login</mat-icon>
+        <span>Login</span>
+      </span>
     </button>
   }
 </mat-toolbar>

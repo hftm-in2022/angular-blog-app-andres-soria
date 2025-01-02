@@ -55,7 +55,7 @@ export const APP_ROUTES: Routes = [
     resolve: { model: blogDetailResolver },
   },
   {
-    path: 'add',
+    path: 'add-blog',
     loadComponent: () =>
       import('./features/add-blog-page/add-blog-page.component').then(
         (c) => c.AddBlogPageComponent,

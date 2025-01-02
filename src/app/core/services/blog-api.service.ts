@@ -1,8 +1,9 @@
-import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable, map } from 'rxjs';
+import { inject, Injectable } from '@angular/core';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Observable, map, switchMap } from 'rxjs';
 import { environment } from '../../../environments/environment';
 import { z } from 'zod';
+import { OidcSecurityService } from 'angular-auth-oidc-client';
 
 const BlogSchema = z.object({
   id: z.number(),
@@ -68,6 +69,9 @@ export type BlogDetails = z.infer<typeof BlogDetailsSchema>;
   providedIn: 'root',
 })
 export class BlogApiService {
+  private httpClient = inject(HttpClient);
+  private oidcSecurityService = inject(OidcSecurityService);
+
   /**
    * Creates an instance of BlogApiService.
    *
@@ -96,5 +100,30 @@ export class BlogApiService {
     return this.http
       .get<BlogDetails>(`${environment.serviceUrl}/entries/${id}`)
       .pipe(map((blogDetails) => BlogDetailsSchema.parse(blogDetails)));
+  }
+
+  /**
+   * Adds a new blog post to the API.
+   *
+   * @param newBlog - The new blog post to add.
+   * @returns An observable of the new blog post.
+   */
+  addBlog(blog: {
+    title: string;
+    content: string;
+    headerImageUrl?: string;
+  }): Observable<Blog> {
+    return this.oidcSecurityService.getAccessToken().pipe(
+      switchMap((token) => {
+        const headers = new HttpHeaders({
+          Authorization: `Bearer ${token}`,
+        });
+        return this.httpClient.post<Blog>(
+          `${environment.serviceUrl}/entries`,
+          blog,
+          { headers },
+        );
+      }),
+    );
   }
 }

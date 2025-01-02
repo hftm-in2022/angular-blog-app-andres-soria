@@ -1,1 +1,81 @@
-<p>add-blog-page works!</p>
+<div class="container">
+  <button class="btn-primary-animated" [routerLink]="['/overview']">
+    <span class="btn-content">
+      <mat-icon>arrow_back</mat-icon>
+      <span>Back to overview</span>
+    </span>
+  </button>
+  <mat-card appearance="outlined" class="form-card">
+    <mat-card-header class="form-card-title">
+      <span class="align-center justify-center gap-4">
+        <mat-icon>add_circle</mat-icon>
+        <span class="fs-large fw-bold">Create new post</span>
+      </span>
+    </mat-card-header>
+    <mat-divider></mat-divider>
+    <mat-card-content>
+      <form
+        [formGroup]="blogForm"
+        (ngSubmit)="onSubmit()"
+        class="form-card-content gap-4"
+      >
+        <mat-form-field appearance="outline" class="form-control">
+          <mat-label>Title</mat-label>
+          <input
+            matInput
+            placeholder="Enter your title"
+            [formControl]="title"
+            (blur)="updateTitleErrorMessage()"
+            required
+            [disabled]="isLoading()"
+          />
+          @if (title.invalid) {
+            <mat-error>{{ titleErrorMessage() }}</mat-error>
+          }
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="form-control">
+          <mat-label>Content</mat-label>
+          <textarea
+            matInput
+            placeholder="Enter your story"
+            [formControl]="content"
+            (blur)="updateContentErrorMessage()"
+            required
+            rows="8"
+            [disabled]="isLoading()"
+          ></textarea>
+          @if (content.invalid) {
+            <mat-error>{{ contentErrorMessage() }}</mat-error>
+          }
+        </mat-form-field>
+        <div class="form-actions">
+          <button
+            type="button"
+            class="btn-tertiary outlined"
+            (click)="blogForm.reset()"
+            [disabled]="isLoading()"
+          >
+            <span class="btn-content">
+              <mat-icon>restart_alt</mat-icon>
+              <span>Reset input</span>
+            </span>
+          </button>
+          <button
+            type="submit"
+            class="btn-primary-animated"
+            [disabled]="blogForm.invalid || isLoading()"
+          >
+            <span class="btn-content">
+              @if (isLoading()) {
+                <span class="btn-disabled-loader"></span>
+              } @else {
+                <mat-icon>send</mat-icon>
+              }
+              <span>Publish post</span>
+            </span>
+          </button>
+        </div>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>
