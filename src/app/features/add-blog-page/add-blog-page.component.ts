@@ -1,4 +1,9 @@
-import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  inject,
+  signal,
+} from '@angular/core';
 import {
   FormControl,
   FormGroup,
@@ -16,6 +21,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { merge } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MatInputModule } from '@angular/material/input';
+import { LoadingStateService } from '../../core/services/loading-state.service';
 
 @Component({
   selector: 'app-add-blog-page',
@@ -37,6 +43,9 @@ import { MatInputModule } from '@angular/material/input';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AddBlogPageComponent {
+  private loadingStateService = inject(LoadingStateService);
+  isLoading = this.loadingStateService.isLoading;
+
   blogForm: FormGroup;
   readonly title = new FormControl('', [
     Validators.required,
@@ -85,9 +94,11 @@ export class AddBlogPageComponent {
 
   onSubmit() {
     if (this.blogForm.valid) {
+      this.loadingStateService.setLoadingState(true);
       const newBlog = this.blogForm.value;
       this.blogService.addBlog(newBlog).subscribe({
         next: () => {
+          this.loadingStateService.setLoadingState(false);
           this.router.navigate(['/overview']);
         },
         error: (err) => {

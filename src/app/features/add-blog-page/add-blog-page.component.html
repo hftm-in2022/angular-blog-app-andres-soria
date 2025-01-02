@@ -27,6 +27,7 @@
             [formControl]="title"
             (blur)="updateTitleErrorMessage()"
             required
+            [disabled]="isLoading()"
           />
           @if (title.invalid) {
             <mat-error>{{ titleErrorMessage() }}</mat-error>
@@ -41,6 +42,7 @@
             (blur)="updateContentErrorMessage()"
             required
             rows="8"
+            [disabled]="isLoading()"
           ></textarea>
           @if (content.invalid) {
             <mat-error>{{ contentErrorMessage() }}</mat-error>
@@ -51,6 +53,7 @@
             type="button"
             class="btn-tertiary outlined"
             (click)="blogForm.reset()"
+            [disabled]="isLoading()"
           >
             <span class="btn-content">
               <mat-icon>restart_alt</mat-icon>
@@ -60,10 +63,14 @@
           <button
             type="submit"
             class="btn-primary-animated"
-            [disabled]="blogForm.invalid"
+            [disabled]="blogForm.invalid || isLoading()"
           >
             <span class="btn-content">
-              <mat-icon>send</mat-icon>
+              @if (isLoading()) {
+                <span class="btn-disabled-loader"></span>
+              } @else {
+                <mat-icon>send</mat-icon>
+              }
               <span>Publish post</span>
             </span>
           </button>
