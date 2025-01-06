@@ -1,20 +1,20 @@
 $font-primary: "Roboto", "Helvetica Neue", sans-serif;
 $lighten: 8%;
-$color-toolbar: #2c3e50;
 
-$color-primary: #8e44ad;
-$color-primary-lighten: lighten($color-primary, $lighten);
+$color-primary: #0984e3;
+$color-primary-lighten: #74b9ff;
+$color-toolbar: #0984e3;
 
-$color-secondary: #16a085;
+$color-secondary: #00b894;
 $color-secondary-lighten: lighten($color-secondary, $lighten);
 
-$color-tertiary: #7f8c8d;
+$color-tertiary: #2d3436;
 $color-tertiary-lighten: lighten($color-tertiary, $lighten);
 
 $color-danger: #c0392b;
 $color-info: #3498db;
-$color-text-muted: #bdc3c7;
-$shadow-card: rgba(0, 0, 0, 0.5);
+$color-text-muted: #b2bec3;
+$color-text-muted-lighten: lighten($color-text-muted, $lighten * 2);
 
 $font-size-small: 0.75rem;
 $font-size-regular: 1rem;
@@ -137,6 +137,24 @@ body {
 
 .spacer {
   flex: 1 1 auto;
+}
+
+.hrule {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 0;
+  height: 1px;
+  background: #dfe6e9;
+  margin: 1rem 0 0 0;
+
+  .section-title {
+    gap: 0.5em;
+    background: #faf9fd;
+    padding: 0 0.2rem;
+    font-size: 0.9rem;
+    color: $color-primary-lighten;
+  }
 }
 
 .btn-content {

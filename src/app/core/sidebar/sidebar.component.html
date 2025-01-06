@@ -1,0 +1,87 @@
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav
+    #drawer
+    class="sidenav"
+    fixedInViewport
+    [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+    [mode]="(isHandset$ | async) ? 'over' : 'side'"
+    [opened]="(isHandset$ | async) === false"
+  >
+    <mat-toolbar>Menu</mat-toolbar>
+    <mat-nav-list>
+      <div class="sidenav-actions-container">
+        <div class="hrule">
+          <span class="section-title">Navigation</span>
+        </div>
+
+        <a href="/overview" class="sidenav-action">
+          <mat-icon>format_list_bulleted</mat-icon>
+          <span>Overview</span>
+        </a>
+
+        @if (isAuthenticated) {
+          <a href="#" class="sidenav-action">
+            <mat-icon>question_mark</mat-icon>
+            <span>Some Option</span>
+          </a>
+
+          <a href="#" class="sidenav-action">
+            <mat-icon>notifications</mat-icon>
+            <span>Some Option 2</span>
+          </a>
+
+          <div class="hrule">
+            <span class="section-title">Actions</span>
+          </div>
+
+          @if (hasUserRoleOnly) {
+            <a href="/add-blog" class="sidenav-action">
+              <mat-icon>add</mat-icon>
+              <span>Add post</span>
+            </a>
+          }
+
+          <div class="hrule">
+            <span class="section-title">Account</span>
+          </div>
+
+          <div class="user-info-container">
+            <mat-icon>person</mat-icon>
+            <span>{{ userData?.preferred_username }}</span>
+          </div>
+
+          <button mat-menu-item (click)="logout()" class="logout-button">
+            <mat-icon>logout</mat-icon>
+            <span>Logout</span>
+          </button>
+          <mat-divider class="hrule"></mat-divider>
+        } @else {
+          <div class="hrule">
+            <!-- <span class="section-title">Log in to make posts</span> -->
+          </div>
+          <button mat-menu-item (click)="login()" class="login-button">
+            <mat-icon>login</mat-icon>
+            <span>Login</span>
+          </button>
+        }
+      </div>
+    </mat-nav-list>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <mat-toolbar color="primary">
+      @if (isHandset$ | async) {
+        <button
+          type="button"
+          aria-label="Toggle sidenav"
+          mat-icon-button
+          (click)="drawer.toggle()"
+        >
+          <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+        </button>
+      }
+      <span class="spacer"></span>
+      <h4>{{ title }}</h4>
+    </mat-toolbar>
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
+</mat-sidenav-container>
