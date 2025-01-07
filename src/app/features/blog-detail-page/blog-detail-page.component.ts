@@ -1,33 +1,15 @@
 import { DatePipe } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { Component, inject, Input } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { RouterLink } from '@angular/router';
-
-interface BlogPost {
-  id: number;
-  updatedAt: string;
-  createdAt: string;
-  title: string;
-  content: string;
-  comments: Comment[];
-  author: string;
-  likes: number;
-  likedByMe: boolean;
-  createdByMe: boolean;
-  headerImageUrl: string;
-}
-
-interface Comment {
-  id: number;
-  content: string;
-  author: string;
-  updatedAt: string;
-  createdAt: string;
-}
+import {
+  BlogApiService,
+  BlogDetails,
+} from '../../core/services/blog-api.service';
 
 @Component({
   selector: 'app-blog-detail-page',
@@ -44,8 +26,10 @@ interface Comment {
   styleUrl: './blog-detail-page.component.scss',
 })
 export class BlogDetailPageComponent {
+  @Input({ required: true }) model!: BlogDetails;
+  blogApiService: BlogApiService = inject(BlogApiService);
+
   addComment() {
-    throw new Error('Method not implemented.');
+    this.blogApiService.addComment(this.model.id, { content: 'New comment' });
   }
-  @Input({ required: true }) model!: BlogPost;
 }

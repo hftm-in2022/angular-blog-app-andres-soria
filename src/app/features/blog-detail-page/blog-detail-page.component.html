@@ -1,5 +1,5 @@
 <div class="container">
-  <button class="btn-primary-animated" [routerLink]="['/overview']">
+  <button class="btn-navigate-back-animated" [routerLink]="['/overview']">
     <span class="btn-content">
       <mat-icon>arrow_back</mat-icon>
       <span>Back to overview</span>
@@ -12,12 +12,19 @@
         By <strong>{{ model.author }}</strong> |
         {{ model.createdAt | date: "dd.MM.yyyy, HH:mm:ss" }}
       </p>
-      <img
-        class="blog-image"
-        mat-card-image
-        src="{{ 'https://picsum.photos/seed/' + model.id + '/348/300' }}"
-        alt="Random Photo"
-      />
+      @if (model.headerImageUrl) {
+        <img
+          mat-card-image
+          src="{{ model.headerImageUrl }}"
+          alt="Header Image"
+        />
+      } @else {
+        <img
+          mat-card-image
+          src="{{ 'https://picsum.photos/seed/' + model.id + '/348/300' }}"
+          alt="Random Photo"
+        />
+      }
     </div>
 
     <p>{{ model.content }}</p>
@@ -59,15 +66,14 @@
           ></textarea>
         </mat-form-field>
 
-        <button
-          mat-raised-button
-          color="primary"
-          (click)="addComment()"
-          disabled="true"
-        >
+        <!-- <button class="btn-primary-animated" (click)="addComment()" disabled="false">
           Post Comment
-        </button>
+        </button> -->
       </div>
+
+      <button class="btn-primary-animated" (click)="addComment()">
+        Post Comment
+      </button>
     </div>
   </div>
 </div>

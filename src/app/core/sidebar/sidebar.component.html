@@ -7,7 +7,9 @@
     [mode]="(isHandset$ | async) ? 'over' : 'side'"
     [opened]="(isHandset$ | async) === false"
   >
-    <mat-toolbar>Menu</mat-toolbar>
+    <mat-toolbar>
+      <span class="logo"></span>
+    </mat-toolbar>
     <mat-nav-list>
       <div class="sidenav-actions-container">
         <div class="hrule">
@@ -20,12 +22,12 @@
         </a>
 
         @if (isAuthenticated) {
-          <a href="#" class="sidenav-action">
-            <mat-icon>question_mark</mat-icon>
-            <span>Some Option</span>
+          <a href="/demo" class="sidenav-action">
+            <mat-icon>bug_report</mat-icon>
+            <span>Demo Components</span>
           </a>
 
-          <a href="#" class="sidenav-action">
+          <a class="sidenav-action">
             <mat-icon>notifications</mat-icon>
             <span>Some Option 2</span>
           </a>
