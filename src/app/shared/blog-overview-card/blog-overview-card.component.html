@@ -4,16 +4,26 @@
       blog.title
     }}</mat-card-title>
   </mat-card-header>
-  @defer (on viewport) {
+  @if (blog.headerImageUrl) {
     <img
       height="300"
       class="blog-image"
       mat-card-image
-      src="{{ 'https://picsum.photos/seed/' + blog.id + '/348/300' }}"
-      alt="Random Photo"
+      src="{{ blog.headerImageUrl }}"
+      alt="blog title image"
     />
-  } @placeholder {
-    <img alt="image of the blog" height="300" class="blog-image" />
+  } @else {
+    @defer (on viewport) {
+      <img
+        height="300"
+        class="blog-image"
+        mat-card-image
+        src="{{ 'https://picsum.photos/seed/' + blog.id + '/348/300' }}"
+        alt="Random Photo"
+      />
+    } @placeholder {
+      <img alt="image of the blog" height="300" class="blog-image" />
+    }
   }
   <mat-card-content>
     <p>{{ blog.contentPreview }}</p>
@@ -22,16 +32,6 @@
     <mat-card-content class="blog-author">
       <p>{{ blog.author }}</p>
     </mat-card-content>
-    <mat-card-actions MatCardActions.align="end">
-      <button
-        mat-icon-button
-        aria-label="Example icon button with a heart icon"
-      >
-        <mat-icon>favorite</mat-icon>
-      </button>
-      <button mat-icon-button aria-label="Example icon button with a shareicon">
-        <mat-icon>share</mat-icon>
-      </button>
-    </mat-card-actions>
+    <span class="icon">{{ blog.likedByMe ? "❤️" : "🤍" }}</span>
   </mat-card-footer>
 </mat-card>

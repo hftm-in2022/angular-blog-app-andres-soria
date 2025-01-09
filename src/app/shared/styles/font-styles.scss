@@ -1,0 +1,25 @@
+.fs-small {
+  font-size: $font-size-small;
+}
+
+.fs-regular {
+  font-size: $font-size-regular;
+}
+
+.fs-large {
+  font-size: $font-size-large;
+}
+
+.fw-bold {
+  font-weight: bold;
+}
+
+.fw-light {
+  font-weight: lighter;
+}
+
+@media (min-width: 768px) {
+  $font-size-small: 1rem;
+  $font-size-regular: 1.125rem;
+  $font-size-large: 1.5rem;
+}

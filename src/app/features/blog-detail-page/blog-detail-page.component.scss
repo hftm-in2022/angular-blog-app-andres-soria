@@ -1,48 +1,67 @@
+@import "../../../styles.scss";
+
 .blog-detail {
-  max-width: 800px;
-  margin: 20px auto;
+  margin: 2rem auto;
   display: flex;
+  flex: 1;
   flex-direction: column;
   justify-content: center;
-  width: 100%;
+  background: #fff;
+  padding: 4rem;
+  border-radius: 0.75rem;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
 
   .blog-header img {
     display: flex;
     justify-self: center;
-    max-width: 100%;
-    max-height: 300px;
+    width: 100%;
+    height: auto;
     border-radius: 8px;
     object-fit: cover;
+    margin: 2.5rem auto;
+  }
+
+  .title-section {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
   }
 
   .blog-stats {
     display: flex;
     align-items: center;
-    gap: 10px;
-    font-size: 1rem;
+    justify-content: flex-start;
+    gap: 0.75rem;
     color: #666;
+    margin: 1rem 0 1rem 0;
   }
 
   .comments-section {
-    h2 {
-      margin-bottom: 20px;
+    h3 {
+      margin-bottom: 1rem;
     }
 
     .add-comment-area {
       display: flex;
       flex-direction: column;
-      margin-top: 50px;
-      gap: 10px;
+      margin-top: 3rem;
+
+      .form-actions {
+        display: flex;
+        justify-content: space-between;
+      }
 
       .full-width {
-        width: 100%;
+        display: inline;
+        flex: 1;
       }
     }
   }
 
   .comment {
-    margin-bottom: 10px;
-    padding: 10px;
+    margin-bottom: 1rem;
+    padding: 0.75rem;
     border-radius: 0.8rem;
     background-color: #f9f9f9;
 
@@ -52,13 +71,42 @@
       align-items: center;
 
       .comment-author {
-        font-weight: bold;
+        font-weight: 300;
       }
 
       .comment-date {
         font-size: small;
         color: #666;
       }
+    }
+  }
+
+  .like-toggle {
+    cursor: pointer;
+
+    .icon {
+      font-size: 1.25rem;
+      user-select: none;
+    }
+
+    input[type="checkbox"] {
+      display: none;
+    }
+  }
+
+  .btn-delete-animated {
+    @include button;
+    background: #fff;
+    color: $color-danger;
+    padding: 0.5rem;
+    border-radius: 50%;
+    border: 2px solid $color-danger;
+    width: 3rem;
+    height: 3rem;
+
+    &:hover {
+      background: $color-danger;
+      color: #fff;
     }
   }
 }

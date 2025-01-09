@@ -1,89 +1,12 @@
-$font-primary: "Roboto", "Helvetica Neue", sans-serif;
-$lighten: 8%;
-$color-toolbar: #2c3e50;
+@import "./app/shared/styles/variables.scss";
+@import "./app/shared/styles/button-styles.scss";
+@import "./app/shared/styles/font-styles.scss";
 
-$color-primary: #8e44ad;
-$color-primary-lighten: lighten($color-primary, $lighten);
-
-$color-secondary: #16a085;
-$color-secondary-lighten: lighten($color-secondary, $lighten);
-
-$color-tertiary: #7f8c8d;
-$color-tertiary-lighten: lighten($color-tertiary, $lighten);
-
-$color-danger: #c0392b;
-$color-info: #3498db;
-$color-text-muted: #bdc3c7;
-$shadow-card: rgba(0, 0, 0, 0.5);
-
-$font-size-small: 0.75rem;
-$font-size-regular: 1rem;
-$font-size-large: 1.5rem;
-
-$default-border-radius: 0.4em;
-
-$default-gap: 4px;
-
-@media (min-width: 768px) {
-  $font-size-small: 1rem;
-  $font-size-regular: 1.125rem;
-  $font-size-large: 1.5rem;
-}
-
-@mixin button {
-  border: none;
-  z-index: 1;
-  color: #fff;
-  border-radius: $default-border-radius;
-  padding: 10px 25px;
-  font-family: $font-primary;
-  font-size: $font-size-regular;
-  transition: all 0.3s ease;
-  position: relative;
-  display: inline-block;
-  outline: none;
-  cursor: pointer;
-}
-
-@mixin button-disabled {
-  background-color: $color-text-muted;
-  cursor: not-allowed;
-  transition: none;
-
-  &:hover,
-  &:focus,
-  &:hover:after,
-  &:focus:after {
-    transition: none;
-    background-color: $color-text-muted;
-  }
-}
-
-@mixin button-active {
-  top: 1px;
-}
-
-@mixin button-outlined($color) {
-  background: transparent;
-  color: $color;
-  box-shadow: inset 0 0 0 2px $color;
-}
-
-@mixin button-animated-after {
-  position: absolute;
-  content: "";
-  width: 0;
+html,
+body {
   height: 100%;
-  top: 0;
-  right: 0;
-  z-index: -1;
-  border-radius: $default-border-radius;
-  transition: all 0.3s ease;
-}
-
-@mixin button-animated-hover-after {
-  left: 0;
-  width: 100%;
+  margin: 0;
+  font-family: $font-primary;
 }
 
 @mixin center-flex {
@@ -94,33 +17,6 @@ $default-gap: 4px;
 
 @mixin transition($property, $duration: 0.3s) {
   transition: #{$property} #{$duration};
-}
-
-html,
-body {
-  height: 100%;
-  margin: 0;
-  font-family: $font-primary;
-}
-
-.fs-small {
-  font-size: $font-size-small;
-}
-
-.fs-regular {
-  font-size: $font-size-regular;
-}
-
-.fs-large {
-  font-size: $font-size-large;
-}
-
-.fw-bold {
-  font-weight: bold;
-}
-
-.fw-light {
-  font-weight: lighter;
 }
 
 .hidden {
@@ -139,12 +35,22 @@ body {
   flex: 1 1 auto;
 }
 
-.btn-content {
+.hrule {
   display: flex;
-  flex-direction: row;
   justify-content: center;
   align-items: center;
-  gap: 0.4em;
+  border: 0;
+  height: 1px;
+  background: #dfe6e9;
+  margin: 1rem 0 0 0;
+
+  .section-title {
+    gap: 0.5em;
+    background: #faf9fd;
+    padding: 0 0.2rem;
+    font-size: 0.9rem;
+    color: $color-primary-lighten;
+  }
 }
 
 .align-center {
@@ -155,6 +61,18 @@ body {
 .justify-center {
   display: flex;
   justify-content: center;
+}
+
+.flex-start {
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
+.flex-end {
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
 }
 
 .gap-1 {
@@ -179,145 +97,4 @@ body {
 
 .fullheight {
   height: 100%;
-}
-
-.btn-primary {
-  @include button;
-  background: $color-primary;
-  &:hover {
-    color: #fff;
-    background-color: $color-primary-lighten;
-  }
-  &:active {
-    @include button-active;
-  }
-  &:disabled {
-    @include button-disabled;
-  }
-  &.outlined {
-    @include button-outlined($color-primary);
-    &:hover {
-      color: #fff;
-      background: $color-primary;
-    }
-  }
-}
-.btn-primary-animated {
-  @include button;
-  background: $color-primary;
-  &:after {
-    @include button-animated-after;
-    background-color: $color-primary-lighten;
-  }
-  &:hover {
-    color: #fff;
-  }
-  &:hover:after {
-    @include button-animated-hover-after;
-  }
-  &:active {
-    @include button-active;
-  }
-  &:disabled:active,
-  &:disabled {
-    @include button-disabled;
-  }
-}
-
-.btn-secondary {
-  @include button;
-  background: $color-secondary;
-  &:hover {
-    color: #fff;
-    background-color: $color-secondary-lighten;
-  }
-  &:active {
-    @include button-active;
-  }
-  &:disabled {
-    background-color: $color-text-muted;
-    cursor: not-allowed;
-  }
-  &.outlined {
-    @include button-outlined($color-secondary);
-    &:hover {
-      color: #fff;
-      background: $color-secondary;
-    }
-  }
-}
-.btn-secondary-animated {
-  @include button;
-  background: $color-secondary;
-  &:after {
-    @include button-animated-after;
-    background-color: $color-secondary-lighten;
-  }
-  &:hover {
-    color: #fff;
-  }
-  &:hover:after {
-    @include button-animated-hover-after;
-  }
-  &:active {
-    @include button-active;
-  }
-}
-
-.btn-tertiary {
-  @include button;
-  background: $color-tertiary;
-  &:hover {
-    color: #fff;
-    background-color: $color-tertiary-lighten;
-  }
-  &:active {
-    @include button-active;
-  }
-  &:disabled {
-    background-color: $color-text-muted;
-    cursor: not-allowed;
-  }
-  &.outlined {
-    @include button-outlined($color-tertiary);
-    &:hover {
-      color: #fff;
-      background: $color-tertiary;
-    }
-  }
-}
-.btn-tertiary-animated {
-  @include button;
-  background: $color-tertiary;
-  &:after {
-    @include button-animated-after;
-    background-color: $color-tertiary-lighten;
-  }
-  &:hover {
-    color: #fff;
-  }
-  &:hover:after {
-    @include button-animated-hover-after;
-  }
-  &:active {
-    @include button-active;
-  }
-  &:disabled {
-    background-color: $color-text-muted;
-    cursor: not-allowed;
-  }
-}
-
-.btn-disabled-loader {
-  width: 14px;
-  aspect-ratio: 1;
-  border-radius: 50%;
-  border: 4px solid $color-text-muted;
-  border-right-color: #ffffff;
-  animation: kf-loader 1s infinite linear;
-}
-@keyframes kf-loader {
-  to {
-    transform: rotate(1turn);
-  }
 }

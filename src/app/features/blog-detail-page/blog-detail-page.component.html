@@ -1,73 +1,120 @@
 <div class="container">
-  <button class="btn-primary-animated" [routerLink]="['/overview']">
+  <button class="btn-navigate-back-animated" [routerLink]="['/overview']">
     <span class="btn-content">
       <mat-icon>arrow_back</mat-icon>
       <span>Back to overview</span>
     </span>
   </button>
-
   <div class="blog-detail">
     <div class="blog-header">
-      <h1>{{ model.title }}</h1>
+      <div class="title-section">
+        <h1>{{ model.title }}</h1>
+
+        @if (deleteBlogAllowed) {
+          <button class="btn-delete-animated" (click)="deleteBlogPost()">
+            <span class="btn-content">
+              <mat-icon>delete</mat-icon>
+            </span>
+          </button>
+        }
+      </div>
       <p>
-        By <strong>{{ model.author }}</strong> |
-        {{ model.createdAt | date: "dd.MM.yyyy, HH:mm:ss" }}
+        <span>📝 #{{ model.id }} </span>
+        @if (model.createdByMe) {
+          <span>Created by you</span>
+        } @else {
+          <span>by {{ model.author }}</span>
+        }
+        <span> | {{ model.createdAt | date: "dd.MM.yyyy, HH:mm:ss" }}</span>
       </p>
-      <img
-        class="blog-image"
-        mat-card-image
-        src="{{ 'https://picsum.photos/seed/' + model.id + '/348/300' }}"
-        alt="Random Photo"
-      />
+
+      @if (model.headerImageUrl) {
+        <img
+          mat-card-image
+          src="{{ model.headerImageUrl }}"
+          alt="Header Image"
+        />
+      } @else {
+        <img
+          mat-card-image
+          src="{{ 'https://picsum.photos/seed/' + model.id + '/348/300' }}"
+          alt="Random Photo"
+        />
+      }
     </div>
 
     <p>{{ model.content }}</p>
 
     <div class="blog-stats">
       <mat-icon>thumb_up</mat-icon> {{ model.likes }}
-      @if (model.createdByMe) {
-        <span> | 📝 Created by you</span>
-      }
-
-      @if (model.likedByMe) {
-        <span>❤️ You liked this</span>
-      }
+      <label class="like-toggle">
+        <input
+          type="checkbox"
+          [checked]="model.likedByMe"
+          (change)="toggleLike()"
+        />
+        <span class="icon">{{ model.likedByMe ? "❤️" : "🤍" }}</span>
+      </label>
     </div>
     <div class="comments-section">
       <h3>Comments ({{ model.comments.length }})</h3>
 
       @for (comment of model.comments; track model.id) {
         <mat-card class="comment">
+          <!-- Something is not right here. Seems that the author is actually the content... -->
           <div class="comment-header">
-            <p class="comment-author">{{ comment.author }}</p>
+            <!-- <p class="comment-author">{{ comment.author }}</p> -->
+            <p class="comment-author">{{ comment.content }}</p>
             <p class="comment-date">
               {{ comment.createdAt | date: "dd.MM.yyyy, HH:mm:ss" }}
             </p>
           </div>
           <mat-card-content>
-            <p>{{ comment.content }}</p>
+            <!-- <p>{{ comment.content }}</p> -->
+            <p>{{ comment.author }}</p>
           </mat-card-content>
         </mat-card>
       }
 
       <div class="add-comment-area">
-        <mat-form-field appearance="fill" class="full-width">
-          <textarea
-            matInput
-            placeholder="Write a comment..."
-            rows="3"
-            disabled="true"
-          ></textarea>
-        </mat-form-field>
+        @if (isUserAuthenticated) {
+          <form [formGroup]="commentForm" (ngSubmit)="onCommentSubmit()">
+            <mat-form-field appearance="outline" class="full-width">
+              <mat-label>Write a comment...</mat-label>
+              <textarea
+                matInput
+                [formControl]="commentContent"
+                (blur)="updateContentErrorMessage()"
+                required
+                rows="3"
+                class="full-width"
+              ></textarea>
+              @if (commentContent.invalid) {
+                <mat-error>{{ contentErrorMessage() }}</mat-error>
+              }
+            </mat-form-field>
 
-        <button
-          mat-raised-button
-          color="primary"
-          (click)="addComment()"
-          disabled="true"
-        >
-          Post Comment
-        </button>
+            <div class="form-actions">
+              <span class="spacer"></span>
+              <button
+                type="submit"
+                class="btn-primary-animated"
+                [disabled]="commentContent.invalid || isLoading()"
+              >
+                <span class="btn-content">
+                  @if (isLoading()) {
+                    <span class="btn-disabled-loader"></span>
+                  } @else {
+                    <mat-icon>send</mat-icon>
+                  }
+                  <span>Publish comment</span>
+                </span>
+              </button>
+            </div>
+          </form>
+        } @else {
+          <p>⚠️ Sign in to write a comment</p>
+        }
       </div>
     </div>
   </div>
