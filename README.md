@@ -1,24 +1,3 @@
-<!-- ![Angular](https://d585tldpucybw.cloudfront.net/sfimages/default-source/blogs/templates/angulart2-light-1200x303.png?sfvrsn=4af99b70_4)
-
-<h1 align="center">Angular Web App Project</h1>
-
-Simple angular web application hosted on Azure Static Web Apps.
-
-This project is intended to implement the contents of the course IN305 "Web-Applikationen".
-
-### **[Link to the Webapp](https://angular-blog-app-andres-soria.web.app/)**
-
-<br>
-<br>
-
-# Table of Contents
-
-### [► Initial project setup: Iteration 0](readme-pages/SETUP.md)
-
-### [► Getting started](readme-pages/GET-STARTED.md)
-
-### [► Project info](readme-pages/PROJECT-INFO.md) -->
-
 # Angular Web App Project
 
 <p align="center">
