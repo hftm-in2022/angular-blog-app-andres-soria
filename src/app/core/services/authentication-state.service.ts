@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { StateService } from './state.service';
 import { Observable } from 'rxjs';
 import { LoginResponse, OidcSecurityService } from 'angular-auth-oidc-client';
+import { hasRole } from '../auth/authentication.guard';
 
 const defaultState: LoginResponse = {
   isAuthenticated: false,
@@ -69,6 +70,25 @@ export class AuthenticationStateService extends StateService<LoginResponse> {
    */
   getLoginResponse(): LoginResponse {
     return this.state;
+  }
+
+  /**
+   * Gets the current authentication state.
+   *
+   * @returns A boolean indicating whether the user is authenticated.
+   */
+  getAuthenticationState(): boolean {
+    return this.state.isAuthenticated;
+  }
+
+  /**
+   * Checks if the current user has the specified role.
+   *
+   * @param role - The role to check for the current user.
+   * @returns A boolean indicating whether the user has the specified role.
+   */
+  userHasRole(role: string): boolean {
+    return hasRole(role);
   }
 
   /**

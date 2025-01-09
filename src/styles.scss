@@ -11,7 +11,11 @@ $color-secondary-lighten: lighten($color-secondary, $lighten);
 $color-tertiary: #2d3436;
 $color-tertiary-lighten: lighten($color-tertiary, $lighten);
 
-$color-danger: #c0392b;
+$color-danger: #ff0000;
+$color-danger-lighten: lighten($color-danger, $lighten);
+
+$color-success: #27ae60;
+$color-warning: #f39c12;
 $color-info: #3498db;
 $color-text-muted: #b2bec3;
 $color-text-muted-lighten: lighten($color-text-muted, $lighten * 2);
@@ -172,6 +176,18 @@ body {
 .justify-center {
   display: flex;
   justify-content: center;
+}
+
+.flex-start {
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
+.flex-end {
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
 }
 
 .gap-1 {

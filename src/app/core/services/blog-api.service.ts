@@ -95,12 +95,12 @@ export class BlogApiService {
   /**
    * Fetches a specific blog post by its ID.
    *
-   * @param id - The ID of the blog post to fetch.
+   * @param blogId - The ID of the blog post to fetch.
    * @returns An observable of the blog post details.
    */
-  getBlogById(id: number): Observable<BlogDetails> {
+  getBlogById(blogId: number): Observable<BlogDetails> {
     return this.http
-      .get<BlogDetails>(`${environment.serviceUrl}/entries/${id}`)
+      .get<BlogDetails>(`${environment.serviceUrl}/entries/${blogId}`)
       .pipe(map((blogDetails) => BlogDetailsSchema.parse(blogDetails)));
   }
 
@@ -119,6 +119,7 @@ export class BlogApiService {
       switchMap((token) => {
         const headers = new HttpHeaders({
           Authorization: `Bearer ${token}`,
+          'Content-Type': 'application/json',
         });
         return this.httpClient.post<Blog>(
           `${environment.serviceUrl}/entries`,
@@ -137,7 +138,7 @@ export class BlogApiService {
    * @returns An observable of the updated blog post.
    */
   updateBlog(
-    id: number,
+    blogId: number,
     blog: {
       title: string;
       content: string;
@@ -148,9 +149,10 @@ export class BlogApiService {
       switchMap((token) => {
         const headers = new HttpHeaders({
           Authorization: `Bearer ${token}`,
+          'Content-Type': 'application/json',
         });
         return this.httpClient.put<Blog>(
-          `${environment.serviceUrl}/entries/${id}`,
+          `${environment.serviceUrl}/entries/${blogId}`,
           blog,
           { headers },
         );
@@ -161,17 +163,17 @@ export class BlogApiService {
   /**
    * Deletes a blog post from the API.
    *
-   * @param id - The ID of the blog post to delete.
+   * @param blogId - The ID of the blog post to delete.
    * @returns An observable of the deleted blog post.
    */
-  deleteBlog(id: number): Observable<Blog> {
+  deleteBlog(blogId: number): Observable<void> {
     return this.oidcSecurityService.getAccessToken().pipe(
       switchMap((token) => {
         const headers = new HttpHeaders({
           Authorization: `Bearer ${token}`,
         });
-        return this.httpClient.delete<Blog>(
-          `${environment.serviceUrl}/entries/${id}`,
+        return this.httpClient.delete<void>(
+          `${environment.serviceUrl}/entries/${blogId}`,
           { headers },
         );
       }),
@@ -181,24 +183,45 @@ export class BlogApiService {
   /**
    * Adds a new comment to a blog post.
    *
-   * @param id - The ID of the blog post to add the comment to.
+   * @param blogId - The ID of the blog post to add the comment to.
    * @param comment - The new comment to add.
    * @returns An observable of the new comment.
    */
-  addComment(
-    id: number,
-    comment: {
-      content: string;
-    },
-  ): Observable<Comment> {
+  addComment(blogId: number, comment: string): Observable<Comment> {
     return this.oidcSecurityService.getAccessToken().pipe(
       switchMap((token) => {
         const headers = new HttpHeaders({
           Authorization: `Bearer ${token}`,
+          'Content-Type': 'application/json',
         });
+        const body = { content: comment };
         return this.httpClient.post<Comment>(
-          `${environment.serviceUrl}/entries/${id}/comments`,
-          comment,
+          `${environment.serviceUrl}/entries/${blogId}/comments`,
+          body,
+          { headers },
+        );
+      }),
+    );
+  }
+
+  /**
+   * Toggles the liked status of a blog entry for the current user.
+   *
+   * @param blogId - The ID of the blog entry to toggle the liked status for.
+   * @param likedByMe - A boolean indicating whether the blog entry is liked by the current user.
+   * @returns An Observable that completes when the operation is finished.
+   */
+  toggleBlogEntryLiked(blogId: number, likedByMe: boolean): Observable<void> {
+    return this.oidcSecurityService.getAccessToken().pipe(
+      switchMap((token) => {
+        const headers = new HttpHeaders({
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        });
+        const body = { likedByMe: likedByMe };
+        return this.httpClient.put<void>(
+          `${environment.serviceUrl}/entries/${blogId}/like-info`,
+          body,
           { headers },
         );
       }),

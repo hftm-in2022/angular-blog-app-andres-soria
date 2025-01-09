@@ -34,7 +34,6 @@ import { LoadingStateService } from '../../core/services/loading-state.service';
     MatCardModule,
     MatDividerModule,
     MatFormFieldModule,
-    ReactiveFormsModule,
     MatInputModule,
     FormsModule,
   ],
@@ -79,6 +78,8 @@ export class AddBlogPageComponent {
       this.titleErrorMessage.set(
         "A post wihtout a title... you're not even trying",
       );
+    } else if (this.title.hasError('minlength')) {
+      this.titleErrorMessage.set('Title must be at least 5 characters long');
     } else {
       this.titleErrorMessage.set('');
     }
@@ -87,12 +88,16 @@ export class AddBlogPageComponent {
   updateContentErrorMessage() {
     if (this.title.hasError('required')) {
       this.contentErrorMessage.set('A post without content is not a post');
+    } else if (this.title.hasError('minlength')) {
+      this.contentErrorMessage.set(
+        'Content must be at least 10 characters long',
+      );
     } else {
       this.contentErrorMessage.set('');
     }
   }
 
-  onSubmit() {
+  onNewBlogSubmit() {
     if (this.blogForm.valid) {
       this.loadingStateService.setLoadingState(true);
       const newBlog = this.blogForm.value;

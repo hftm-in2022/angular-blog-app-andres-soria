@@ -1,8 +1,8 @@
 <mat-card class="blog-card">
   <mat-card-header>
-    <mat-card-title class="card-title" data-testid="title">{{
-      blog.title
-    }}</mat-card-title>
+    <mat-card-title class="card-title" data-testid="title"
+      >{{ blog.title }} #{{ blog.id }}</mat-card-title
+    >
   </mat-card-header>
   @if (blog.headerImageUrl) {
     <img
@@ -32,16 +32,6 @@
     <mat-card-content class="blog-author">
       <p>{{ blog.author }}</p>
     </mat-card-content>
-    <mat-card-actions MatCardActions.align="end">
-      <button
-        mat-icon-button
-        aria-label="Example icon button with a heart icon"
-      >
-        <mat-icon>favorite</mat-icon>
-      </button>
-      <button mat-icon-button aria-label="Example icon button with a shareicon">
-        <mat-icon>share</mat-icon>
-      </button>
-    </mat-card-actions>
+    <span class="icon">{{ blog.likedByMe ? "❤️" : "🤍" }}</span>
   </mat-card-footer>
 </mat-card>
