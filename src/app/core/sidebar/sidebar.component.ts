@@ -40,6 +40,7 @@ import { hasRole } from '../auth/authentication.guard';
 })
 export class SidebarComponent {
   private breakpointObserver = inject(BreakpointObserver);
+  private authenticationStateService = inject(AuthenticationStateService);
 
   @Input() isAuthenticated!: boolean | null;
   @Input() userData!: UserData | null;
@@ -47,7 +48,7 @@ export class SidebarComponent {
   title = 'Angular Blog-App';
   hasUserRoleOnly = true;
 
-  constructor(private authenticationStateService: AuthenticationStateService) {
+  constructor() {
     this.authenticationStateService.loginResponse$.subscribe(
       (loginResponse) => {
         this.hasUserRoleOnly =
@@ -65,8 +66,8 @@ export class SidebarComponent {
     this.authenticateEmitter.emit(false);
   }
 
-  isHandset$: Observable<boolean> = this.breakpointObserver
-    .observe(Breakpoints.Handset)
+  isHandsetPortrait$: Observable<boolean> = this.breakpointObserver
+    .observe(Breakpoints.HandsetPortrait)
     .pipe(
       map((result) => result.matches),
       shareReplay(),

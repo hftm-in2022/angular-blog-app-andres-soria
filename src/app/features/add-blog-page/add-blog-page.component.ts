@@ -18,10 +18,11 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { merge } from 'rxjs';
+import { map, merge, Observable, shareReplay } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MatInputModule } from '@angular/material/input';
 import { LoadingStateService } from '../../core/services/loading-state.service';
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 
 @Component({
   selector: 'app-add-blog-page',
@@ -43,6 +44,9 @@ import { LoadingStateService } from '../../core/services/loading-state.service';
 })
 export class AddBlogPageComponent {
   private loadingStateService = inject(LoadingStateService);
+  private breakpointObserver = inject(BreakpointObserver);
+  private router = inject(Router);
+  private blogService: BlogApiService = inject(BlogApiService);
   isLoading = this.loadingStateService.isLoading;
 
   blogForm: FormGroup;
@@ -58,10 +62,7 @@ export class AddBlogPageComponent {
   titleErrorMessage = signal('');
   contentErrorMessage = signal('');
 
-  constructor(
-    private blogService: BlogApiService,
-    private router: Router,
-  ) {
+  constructor() {
     merge(this.title.statusChanges, this.title.valueChanges)
       .pipe(takeUntilDestroyed())
       .subscribe(() => this.updateTitleErrorMessage());
@@ -72,6 +73,13 @@ export class AddBlogPageComponent {
 
     this.blogForm = new FormGroup({ title: this.title, content: this.content });
   }
+
+  showBlogFormButtonText$: Observable<boolean> = this.breakpointObserver
+    .observe(Breakpoints.HandsetPortrait)
+    .pipe(
+      map((result) => result.matches),
+      shareReplay(),
+    );
 
   updateTitleErrorMessage() {
     if (this.title.hasError('required')) {

@@ -57,7 +57,9 @@
           >
             <span class="btn-content">
               <mat-icon>restart_alt</mat-icon>
-              <span>Reset input</span>
+              @if (showBlogFormButtonText$) {
+                <span>Reset input</span>
+              }
             </span>
           </button>
           <button
@@ -71,7 +73,10 @@
               } @else {
                 <mat-icon>send</mat-icon>
               }
-              <span>Publish post</span>
+
+              @if (showBlogFormButtonText$) {
+                <span>Publish post</span>
+              }
             </span>
           </button>
         </div>

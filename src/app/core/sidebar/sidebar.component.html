@@ -3,9 +3,9 @@
     #drawer
     class="sidenav"
     fixedInViewport
-    [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
-    [mode]="(isHandset$ | async) ? 'over' : 'side'"
-    [opened]="(isHandset$ | async) === false"
+    [attr.role]="(isHandsetPortrait$ | async) ? 'dialog' : 'navigation'"
+    [mode]="(isHandsetPortrait$ | async) ? 'over' : 'side'"
+    [opened]="(isHandsetPortrait$ | async) === false"
   >
     <mat-toolbar>
       <span class="logo"></span>
@@ -71,7 +71,7 @@
   </mat-sidenav>
   <mat-sidenav-content>
     <mat-toolbar color="primary">
-      @if (isHandset$ | async) {
+      @if (isHandsetPortrait$ | async) {
         <button
           type="button"
           aria-label="Toggle sidenav"
