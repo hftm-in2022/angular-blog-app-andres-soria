@@ -11,7 +11,11 @@
         <h1>{{ model.title }}</h1>
 
         @if (deleteBlogAllowed) {
-          <button class="btn-delete-animated" (click)="deleteBlogPost()">
+          <button
+            class="btn-delete-animated"
+            (click)="deleteBlogPost()"
+            [disabled]="isLoading()"
+          >
             <span class="btn-content">
               <mat-icon>delete</mat-icon>
             </span>
@@ -113,7 +117,7 @@
             </div>
           </form>
         } @else {
-          <p>⚠️ Sign in to write a comment</p>
+          <p class="login-hint">⚠️ Sign in to write a comment</p>
         }
       </div>
     </div>

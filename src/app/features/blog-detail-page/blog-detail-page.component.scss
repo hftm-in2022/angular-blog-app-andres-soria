@@ -109,4 +109,14 @@
       color: #fff;
     }
   }
+
+  .login-hint {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0.4rem;
+    border-radius: $default-border-radius;
+    background: #f9f9f9;
+    color: #666;
+  }
 }

@@ -1,0 +1,8 @@
+<div class="error-container">
+  <h1>Something went wrong 😔</h1>
+  <p>We couldn't process your request. Please try again later.</p>
+  @if (errorCode) {
+    <p class="error-code">Error Code: {{ errorCode }}</p>
+    <button (click)="toOverview()" class="btn">Go to Homepage</button>
+  }
+</div>

@@ -8,7 +8,7 @@ import {
 } from './core/services/blog-api.service';
 import { LoadingStateService } from './core/services/loading-state.service';
 import { AuthenticationGuard } from './core/auth/authentication.guard';
-import { NotFoundPageComponent } from './shared/not-found-page/not-found-page.component';
+import { NotFoundPageComponent } from './core/not-found-page/not-found-page.component';
 
 export const blogPostsResolver: ResolveFn<Entries> = async () => {
   const blogApiService = inject(BlogApiService);
@@ -33,16 +33,7 @@ export const blogDetailResolver: ResolveFn<BlogDetails> = (route) => {
 };
 
 export const APP_ROUTES: Routes = [
-  // { path: '', pathMatch: 'full', component: NotFoundPageComponent },
-  {
-    path: '',
-    loadComponent: () =>
-      import('./features/blog-overview-page/blog-overview-page.component').then(
-        (c) => c.BlogOverviewPageComponent,
-      ),
-    resolve: { model: blogPostsResolver },
-    runGuardsAndResolvers: 'always',
-  },
+  { path: '', redirectTo: 'overview', pathMatch: 'full' },
   {
     path: 'overview',
     loadComponent: () =>
@@ -72,6 +63,13 @@ export const APP_ROUTES: Routes = [
     path: 'demo',
     loadComponent: () =>
       import('./features/demo/demo.component').then((c) => c.DemoComponent),
+  },
+  {
+    path: 'error',
+    loadComponent: () =>
+      import('./core/error-page/error-page.component').then(
+        (c) => c.ErrorPageComponent,
+      ),
   },
   { path: '**', pathMatch: 'full', component: NotFoundPageComponent },
 ];

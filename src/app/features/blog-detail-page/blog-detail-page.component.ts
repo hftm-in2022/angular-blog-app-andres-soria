@@ -1,5 +1,12 @@
 import { DatePipe } from '@angular/common';
-import { Component, inject, Input, signal, OnChanges } from '@angular/core';
+import {
+  Component,
+  inject,
+  Input,
+  signal,
+  OnChanges,
+  ErrorHandler,
+} from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -18,7 +25,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { AuthenticationStateService } from '../../core/services/authentication-state.service';
-import { merge, switchMap, finalize } from 'rxjs';
+import { merge, switchMap, finalize, tap, catchError } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 
@@ -44,6 +51,7 @@ export class BlogDetailPageComponent implements OnChanges {
   private blogApiService: BlogApiService = inject(BlogApiService);
   private authenticationStateService = inject(AuthenticationStateService);
   private router = inject(Router);
+  private errorHandler = inject(ErrorHandler);
 
   isLoading = this.loadingStateService.isLoading;
   contentErrorMessage = signal('');
@@ -76,28 +84,23 @@ export class BlogDetailPageComponent implements OnChanges {
     }
   }
 
-  // updateCommentControlState(): void {
-  //   if (!this.isUserAuthenticated || !this.commentContent) {
-  //     this.commentForm?.disable();
-  //   } else {
-  //     this.commentForm?.enable();
-  //   }
-  // }
-
   toggleLike() {
+    const newLikedState = !this.model.likedByMe;
     this.loadingStateService.setLoadingState(true);
-    this.model.likedByMe = !this.model.likedByMe;
     this.blogApiService
-      .toggleBlogEntryLiked(this.model.id, this.model.likedByMe)
-      .subscribe({
-        next: () => {
-          this.loadingStateService.setLoadingState(false);
-          this.model.likes += this.model.likedByMe ? 1 : -1;
-        },
-        error: (err) => {
-          console.error('Failed to toggle like:', err);
-        },
-      });
+      .toggleBlogEntryLiked(this.model.id, newLikedState)
+      .pipe(
+        tap(() => {
+          this.model.likedByMe = newLikedState;
+          this.model.likes += newLikedState ? 1 : -1;
+        }),
+        catchError((err) => {
+          this.errorHandler.handleError(err);
+          return [];
+        }),
+        finalize(() => this.loadingStateService.setLoadingState(false)),
+      )
+      .subscribe();
   }
 
   onCommentSubmit() {
@@ -108,6 +111,10 @@ export class BlogDetailPageComponent implements OnChanges {
         .addComment(this.model.id, newComment)
         .pipe(
           switchMap(() => this.blogApiService.getBlogById(this.model.id)),
+          catchError((err) => {
+            this.errorHandler.handleError(err);
+            return [];
+          }),
           finalize(() => {
             this.loadingStateService.setLoadingState(false);
             this.commentContent.setValue('');
@@ -126,15 +133,19 @@ export class BlogDetailPageComponent implements OnChanges {
 
   deleteBlogPost() {
     this.loadingStateService.setLoadingState(true);
-    this.blogApiService.deleteBlog(this.model.id).subscribe({
-      next: () => {
-        this.loadingStateService.setLoadingState(false);
-        this.router.navigate(['/overview']);
-      },
-      error: (err) => {
-        console.error('Failed to delete blog entry:', err);
-      },
-    });
+    this.blogApiService
+      .deleteBlog(this.model.id)
+      .pipe(
+        tap(() => {
+          this.router.navigate(['/overview']);
+        }),
+        catchError((err) => {
+          this.errorHandler.handleError(err);
+          return [];
+        }),
+        finalize(() => this.loadingStateService.setLoadingState(false)),
+      )
+      .subscribe();
   }
 
   updateContentErrorMessage() {

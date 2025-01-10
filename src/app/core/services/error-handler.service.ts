@@ -1,20 +1,27 @@
 import { ErrorHandler, Injectable } from '@angular/core';
-import { environment } from '../../../environments/environment';
+import { Router } from '@angular/router';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root',
+})
 export class AppErrorHandler implements ErrorHandler {
+  constructor(private router: Router) {}
+
   handleError(error: Error): void {
-    const message = error.message ? error.message : error.toString();
-    this.postErrorData(error, message);
-    if (!environment.development) {
-      window.location.href = '/error';
-    } else {
-      console.log('ERROR ->', error);
-    }
+    const message = error?.message || error?.toString() || 'Unknown Error';
+    const stack = error?.stack || 'No stack trace available';
+    const name = error?.name || 'UNKNOWN';
+
+    this.postErrorData(message, stack);
+    this.router.navigate(['/error'], { queryParams: { name, message } });
   }
 
-  postErrorData(error: Error, message: string) {
-    console.log('Error Message ->', message);
-    console.log('Error Stack ->', error.stack);
+  private postErrorData(message: string, stack: string) {
+    const errorDetails = {
+      message,
+      stack,
+      timestamp: new Date().toISOString(),
+    };
+    console.error('Error Report:', errorDetails);
   }
 }

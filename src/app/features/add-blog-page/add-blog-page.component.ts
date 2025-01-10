@@ -1,6 +1,7 @@
 import {
   ChangeDetectionStrategy,
   Component,
+  ErrorHandler,
   inject,
   signal,
 } from '@angular/core';
@@ -18,7 +19,15 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { map, merge, Observable, shareReplay } from 'rxjs';
+import {
+  catchError,
+  finalize,
+  map,
+  merge,
+  Observable,
+  shareReplay,
+  tap,
+} from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MatInputModule } from '@angular/material/input';
 import { LoadingStateService } from '../../core/services/loading-state.service';
@@ -47,6 +56,7 @@ export class AddBlogPageComponent {
   private breakpointObserver = inject(BreakpointObserver);
   private router = inject(Router);
   private blogService: BlogApiService = inject(BlogApiService);
+  private errorHandler = inject(ErrorHandler);
   isLoading = this.loadingStateService.isLoading;
 
   blogForm: FormGroup;
@@ -109,15 +119,22 @@ export class AddBlogPageComponent {
     if (this.blogForm.valid) {
       this.loadingStateService.setLoadingState(true);
       const newBlog = this.blogForm.value;
-      this.blogService.addBlog(newBlog).subscribe({
-        next: () => {
-          this.loadingStateService.setLoadingState(false);
-          this.router.navigate(['/overview']);
-        },
-        error: (err) => {
-          console.error('Failed to create blog:', err);
-        },
-      });
+
+      this.blogService
+        .addBlog(newBlog)
+        .pipe(
+          tap(() => {
+            this.router.navigate(['/overview']);
+          }),
+          catchError((err) => {
+            this.errorHandler.handleError(err);
+            return [];
+          }),
+          finalize(() => {
+            this.loadingStateService.setLoadingState(false);
+          }),
+        )
+        .subscribe();
     }
   }
 }

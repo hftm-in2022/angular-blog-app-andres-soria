@@ -1,6 +1,6 @@
 import { inject, Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable, map, switchMap } from 'rxjs';
+import { Observable, delay, map, switchMap } from 'rxjs';
 import { environment } from '../../../environments/environment';
 import { z } from 'zod';
 import { OidcSecurityService } from 'angular-auth-oidc-client';
@@ -73,6 +73,7 @@ export type Comment = z.infer<typeof CommentSchema>;
 export class BlogApiService {
   private httpClient = inject(HttpClient);
   private oidcSecurityService = inject(OidcSecurityService);
+  private demoDelay = 200;
 
   /**
    * Creates an instance of BlogApiService.
@@ -87,9 +88,10 @@ export class BlogApiService {
    * @returns An observable of the list of blog entries.
    */
   getAllPosts(): Observable<Entries> {
-    return this.http
-      .get<Entries>(`${environment.serviceUrl}/entries`)
-      .pipe(map((entries) => EntriesSchema.parse(entries)));
+    return this.http.get<Entries>(`${environment.serviceUrl}/entries`).pipe(
+      delay(1000),
+      map((entries) => EntriesSchema.parse(entries)),
+    );
   }
 
   /**
@@ -101,7 +103,10 @@ export class BlogApiService {
   getBlogById(blogId: number): Observable<BlogDetails> {
     return this.http
       .get<BlogDetails>(`${environment.serviceUrl}/entries/${blogId}`)
-      .pipe(map((blogDetails) => BlogDetailsSchema.parse(blogDetails)));
+      .pipe(
+        delay(this.demoDelay),
+        map((blogDetails) => BlogDetailsSchema.parse(blogDetails)),
+      );
   }
 
   /**
@@ -116,6 +121,7 @@ export class BlogApiService {
     headerImageUrl?: string;
   }): Observable<Blog> {
     return this.oidcSecurityService.getAccessToken().pipe(
+      delay(this.demoDelay),
       switchMap((token) => {
         const headers = new HttpHeaders({
           Authorization: `Bearer ${token}`,
@@ -168,6 +174,7 @@ export class BlogApiService {
    */
   deleteBlog(blogId: number): Observable<void> {
     return this.oidcSecurityService.getAccessToken().pipe(
+      delay(this.demoDelay),
       switchMap((token) => {
         const headers = new HttpHeaders({
           Authorization: `Bearer ${token}`,
@@ -189,6 +196,7 @@ export class BlogApiService {
    */
   addComment(blogId: number, comment: string): Observable<Comment> {
     return this.oidcSecurityService.getAccessToken().pipe(
+      delay(this.demoDelay),
       switchMap((token) => {
         const headers = new HttpHeaders({
           Authorization: `Bearer ${token}`,
