@@ -18,6 +18,8 @@ import {
   UserData,
 } from '../services/authentication-state.service';
 import { hasRole } from '../auth/authentication.guard';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { LoadingStateService } from '../services/loading-state.service';
 
 @Component({
   selector: 'app-sidebar',
@@ -36,9 +38,11 @@ import { hasRole } from '../auth/authentication.guard';
     MatDividerModule,
     MatChipsModule,
     RouterOutlet,
+    MatProgressBarModule,
   ],
 })
 export class SidebarComponent {
+  private loadingStateService = inject(LoadingStateService);
   private breakpointObserver = inject(BreakpointObserver);
   private authenticationStateService = inject(AuthenticationStateService);
 
@@ -47,6 +51,7 @@ export class SidebarComponent {
   @Output() authenticateEmitter = new EventEmitter<boolean>();
   title = 'Angular Blog-App';
   hasUserRoleOnly = true;
+  isLoading = this.loadingStateService.isLoading;
 
   constructor() {
     this.authenticationStateService.loginResponse$.subscribe(

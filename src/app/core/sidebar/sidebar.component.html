@@ -84,6 +84,9 @@
       <span class="spacer"></span>
       <h4>{{ title }}</h4>
     </mat-toolbar>
+    @if (isLoading()) {
+      <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+    }
     <router-outlet></router-outlet>
   </mat-sidenav-content>
 </mat-sidenav-container>

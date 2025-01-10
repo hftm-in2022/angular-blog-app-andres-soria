@@ -13,13 +13,9 @@ import { SidebarComponent } from './core/sidebar/sidebar.component';
 })
 export class AppComponent {
   private loadingStateService = inject(LoadingStateService);
-  authenticationStateService: AuthenticationStateService;
+  authenticationStateService = inject(AuthenticationStateService);
 
   isLoading = this.loadingStateService.isLoading;
-
-  constructor(authenticationStateService: AuthenticationStateService) {
-    this.authenticationStateService = authenticationStateService;
-  }
 
   manageAuthentication(mustLogin: boolean): void {
     if (mustLogin) this.authenticationStateService.login();
