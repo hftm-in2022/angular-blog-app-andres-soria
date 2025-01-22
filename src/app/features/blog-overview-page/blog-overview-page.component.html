@@ -1,8 +1,9 @@
-<div class="blog-overview-container">
+<div class="blog-overview-container" data-testid="blog-overview-container">
   @for (blog of model.data; track blog.id) {
     <app-blog-overview-card
       [blog]="blog"
       [routerLink]="['/detail/', blog.id]"
+      data-testid="blog-overview-card"
     ></app-blog-overview-card>
   }
 </div>

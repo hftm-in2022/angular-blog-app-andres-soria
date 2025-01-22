@@ -11,27 +11,26 @@
       mat-card-image
       src="{{ blog.headerImageUrl }}"
       alt="blog title image"
+      data-testid="blog-header-image"
     />
   } @else {
-    @defer (on viewport) {
-      <img
-        height="300"
-        class="blog-image"
-        mat-card-image
-        src="{{ 'https://picsum.photos/seed/' + blog.id + '/348/300' }}"
-        alt="Random Photo"
-      />
-    } @placeholder {
-      <img alt="image of the blog" height="300" class="blog-image" />
-    }
+    <img
+      height="300"
+      class="blog-image"
+      mat-card-image
+      src="{{ 'https://picsum.photos/seed/' + blog.id + '/348/300' }}"
+      alt="Random Photo"
+    />
   }
-  <mat-card-content>
+  <mat-card-content data-testid="blog-content">
     <p>{{ blog.contentPreview }}</p>
   </mat-card-content>
   <mat-card-footer class="blog-footer">
-    <mat-card-content class="blog-author">
+    <mat-card-content class="blog-author" data-testid="blog-author">
       <p>{{ blog.author }}</p>
     </mat-card-content>
-    <span class="icon">{{ blog.likedByMe ? "❤️" : "🤍" }}</span>
+    <span class="icon" data-testid="blog-liked-by-me">{{
+      blog.likedByMe ? "❤️" : "🤍"
+    }}</span>
   </mat-card-footer>
 </mat-card>
