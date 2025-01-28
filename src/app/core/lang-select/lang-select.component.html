@@ -1,0 +1,15 @@
+<div class="lang-toggle-container">
+  <mat-button-toggle-group
+    appearance="legacy"
+    hideMultipleSelectionIndicator="true"
+  >
+    @for (language of languages; track $index) {
+      <mat-button-toggle
+        (click)="onToggleChange(languages[$index])"
+        [checked]="selectedLanguage === languages[$index].code"
+      >
+        <img [src]="language.imageUrl" alt="Selected" class="lang-flag" />
+      </mat-button-toggle>
+    }
+  </mat-button-toggle-group>
+</div>

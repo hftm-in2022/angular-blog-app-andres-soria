@@ -1,0 +1,34 @@
+{
+    "Language": "Sprache",
+    "ErrorPage": {
+        "Title": "Ein Fehler ist aufgetreten",
+        "Message": "Entschuldigung, ein Fehler ist aufgetreten. Bitte versuchen Sie es später erneut."
+    },
+    "GoBackButtonText": "Zurück zur Übersicht",
+    "SideBar": {
+        "Overview": "Übersicht",
+        "DemoComponents": "Demo Komponenten",
+        "SomeOption": "Platzhalter",
+        "ActionsTitle": "Aktionen",
+        "AddPost": "Post erstellen",
+        "Account": "Benutzerkonto",
+        "Logout": "Abmelden",
+        "Login": "Anmelden"
+    },
+    "AddBlogPage": {
+        "Title": "Neuen Blog erstellen",
+        "TitleLabel": "Titel",
+        "TitlePlaceholder": "Geben Sie den Titel des Blogs ein",
+        "ContentLabel": "Inhalt",
+        "ContentPlaceholder": "Geben Sie den Inhalt des Blogs ein",
+        "SubmitButtonText": "Post veröffentlichen",
+        "ResetButtonText": "Formular zurücksetzen"
+    },
+    "BlogDetailPage": {
+        "LoginHint": "Anmelden, um einen Kommentar zu verfassen.",
+        "AddCommentLabel": "Kommentar schreiben...",
+        "CreatedByMeLabel": "Von Ihnen erstellt",
+        "CommentSectionTitle": "Kommentare",
+        "SubmitButtonText": "Kommentar veröffentlichen"
+    }
+}

@@ -2,14 +2,16 @@
   <button class="btn-navigate-back-animated" [routerLink]="['/overview']">
     <span class="btn-content">
       <mat-icon>arrow_back</mat-icon>
-      <span>Back to overview</span>
+      <span>{{ "GoBackButtonText" | translate }}</span>
     </span>
   </button>
   <mat-card appearance="outlined" class="form-card">
     <mat-card-header class="form-card-title">
       <span class="align-center justify-center gap-4">
         <mat-icon>add_circle</mat-icon>
-        <span class="fs-large fw-bold">Create new post</span>
+        <span class="fs-large fw-bold">{{
+          "AddBlogPage.Title" | translate
+        }}</span>
       </span>
     </mat-card-header>
     <mat-divider></mat-divider>
@@ -20,10 +22,10 @@
         class="form-card-content gap-4"
       >
         <mat-form-field appearance="outline" class="form-control">
-          <mat-label>Title</mat-label>
+          <mat-label>{{ "AddBlogPage.TitleLabel" | translate }}</mat-label>
           <input
             matInput
-            placeholder="Enter your title"
+            placeholder="{{ 'AddBlogPage.TitlePlaceholder' | translate }}"
             [formControl]="title"
             (blur)="updateTitleErrorMessage()"
             required
@@ -34,10 +36,10 @@
           }
         </mat-form-field>
         <mat-form-field appearance="outline" class="form-control">
-          <mat-label>Content</mat-label>
+          <mat-label>{{ "AddBlogPage.ContentLabel" | translate }}</mat-label>
           <textarea
             matInput
-            placeholder="Enter your story"
+            placeholder="{{ 'AddBlogPage.ContentPlaceholder' | translate }}"
             [formControl]="content"
             (blur)="updateContentErrorMessage()"
             required
@@ -58,7 +60,7 @@
             <span class="btn-content">
               <mat-icon>restart_alt</mat-icon>
               @if (showBlogFormButtonText$) {
-                <span>Reset input</span>
+                <span>{{ "AddBlogPage.ResetButtonText" | translate }}</span>
               }
             </span>
           </button>
@@ -75,7 +77,7 @@
               }
 
               @if (showBlogFormButtonText$) {
-                <span>Publish post</span>
+                <span>{{ "AddBlogPage.SubmitButtonText" | translate }}</span>
               }
             </span>
           </button>

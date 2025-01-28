@@ -8,7 +8,7 @@
     [opened]="(isHandsetPortrait$ | async) === false"
   >
     <mat-toolbar>
-      <span class="logo"></span>
+      <img src="/images/angular.webp" alt="logo" class="logo" />
     </mat-toolbar>
     <mat-nav-list>
       <div class="sidenav-actions-container">
@@ -18,33 +18,37 @@
 
         <a href="/overview" class="sidenav-action">
           <mat-icon>format_list_bulleted</mat-icon>
-          <span>Overview</span>
+          <span>{{ "SideBar.Overview" | translate }}</span>
         </a>
 
         @if (isAuthenticated) {
           <a href="/demo" class="sidenav-action">
             <mat-icon>bug_report</mat-icon>
-            <span>Demo Components</span>
+            <span>{{ "SideBar.DemoComponents" | translate }}</span>
           </a>
 
           <a class="sidenav-action">
             <mat-icon>notifications</mat-icon>
-            <span>Some Option 2</span>
+            <span>{{ "SideBar.SomeOption" | translate }}</span>
           </a>
 
           <div class="hrule">
-            <span class="section-title">Actions</span>
+            <span class="section-title">{{
+              "SideBar.ActionsTitle" | translate
+            }}</span>
           </div>
 
           @if (hasUserRoleOnly) {
             <a href="/add-blog" class="sidenav-action">
               <mat-icon>add</mat-icon>
-              <span>Add post</span>
+              <span>{{ "SideBar.AddPost" | translate }}</span>
             </a>
           }
 
           <div class="hrule">
-            <span class="section-title">Account</span>
+            <span class="section-title">{{
+              "SideBar.Account" | translate
+            }}</span>
           </div>
 
           <div class="user-info-container">
@@ -54,18 +58,18 @@
 
           <button mat-menu-item (click)="logout()" class="logout-button">
             <mat-icon>logout</mat-icon>
-            <span>Logout</span>
+            <span>{{ "SideBar.Logout" | translate }}</span>
           </button>
           <mat-divider class="hrule"></mat-divider>
         } @else {
-          <div class="hrule">
-            <!-- <span class="section-title">Log in to make posts</span> -->
-          </div>
+          <div class="hrule"></div>
           <button mat-menu-item (click)="login()" class="login-button">
             <mat-icon>login</mat-icon>
-            <span>Login</span>
+            <span>{{ "SideBar.Login" | translate }}</span>
           </button>
         }
+
+        <app-lang-select></app-lang-select>
       </div>
     </mat-nav-list>
   </mat-sidenav>
