@@ -32,6 +32,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MatInputModule } from '@angular/material/input';
 import { LoadingStateService } from '../../core/services/loading-state.service';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-add-blog-page',
@@ -46,6 +47,7 @@ import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
     MatFormFieldModule,
     MatInputModule,
     FormsModule,
+    TranslateModule,
   ],
   templateUrl: './add-blog-page.component.html',
   styleUrl: './add-blog-page.component.scss',

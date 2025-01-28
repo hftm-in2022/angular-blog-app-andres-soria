@@ -20,6 +20,8 @@ import {
 import { hasRole } from '../auth/authentication.guard';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { LoadingStateService } from '../services/loading-state.service';
+import { LangSelectComponent } from '../lang-select/lang-select.component';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-sidebar',
@@ -39,6 +41,8 @@ import { LoadingStateService } from '../services/loading-state.service';
     MatChipsModule,
     RouterOutlet,
     MatProgressBarModule,
+    LangSelectComponent,
+    TranslateModule,
   ],
 })
 export class SidebarComponent {

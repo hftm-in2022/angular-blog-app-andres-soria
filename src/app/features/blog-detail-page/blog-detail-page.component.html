@@ -2,7 +2,7 @@
   <button class="btn-navigate-back-animated" [routerLink]="['/overview']">
     <span class="btn-content">
       <mat-icon>arrow_back</mat-icon>
-      <span>Back to overview</span>
+      <span>{{ "GoBackButtonText" | translate }}</span>
     </span>
   </button>
   <div class="blog-detail">
@@ -25,7 +25,7 @@
       <p>
         <span>📝 #{{ model.id }} </span>
         @if (model.createdByMe) {
-          <span>Created by you</span>
+          <span>{{ "BlogDetailPage.CreatedByMeLabel" | translate }}</span>
         } @else {
           <span>by {{ model.author }}</span>
         }
@@ -61,7 +61,11 @@
       </label>
     </div>
     <div class="comments-section">
-      <h3>Comments ({{ model.comments.length }})</h3>
+      <h3>
+        {{ "BlogDetailPage.CommentSectionTitle" | translate }} ({{
+          model.comments.length
+        }})
+      </h3>
 
       @for (comment of model.comments; track model.id) {
         <mat-card class="comment">
@@ -84,7 +88,9 @@
         @if (isUserAuthenticated) {
           <form [formGroup]="commentForm" (ngSubmit)="onCommentSubmit()">
             <mat-form-field appearance="outline" class="full-width">
-              <mat-label>Write a comment...</mat-label>
+              <mat-label>{{
+                "BlogDetailPage.AddCommentLabel" | translate
+              }}</mat-label>
               <textarea
                 matInput
                 [formControl]="commentContent"
@@ -111,13 +117,17 @@
                   } @else {
                     <mat-icon>send</mat-icon>
                   }
-                  <span>Publish comment</span>
+                  <span>{{
+                    "BlogDetailPage.SubmitButtonText" | translate
+                  }}</span>
                 </span>
               </button>
             </div>
           </form>
         } @else {
-          <p class="login-hint">⚠️ Sign in to write a comment</p>
+          <p class="login-hint">
+            ⚠️ {{ "BlogDetailPage.LoginHint" | translate }}
+          </p>
         }
       </div>
     </div>

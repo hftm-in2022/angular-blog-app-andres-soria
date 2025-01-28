@@ -12,9 +12,9 @@ import {
   UserData,
 } from '../services/authentication-state.service';
 import { hasRole } from '../auth/authentication.guard';
-import { RouterLink } from '@angular/router';
 
 @Component({
+  standalone: true,
   selector: 'app-toolbar',
   imports: [
     FormsModule,
@@ -25,7 +25,6 @@ import { RouterLink } from '@angular/router';
     MatMenuModule,
     MatDividerModule,
     MatChipsModule,
-    RouterLink,
   ],
   templateUrl: './app-toolbar.component.html',
   styleUrl: './app-toolbar.component.scss',

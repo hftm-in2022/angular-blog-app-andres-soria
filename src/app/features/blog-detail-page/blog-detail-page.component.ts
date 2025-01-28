@@ -28,6 +28,7 @@ import { AuthenticationStateService } from '../../core/services/authentication-s
 import { merge, switchMap, finalize, tap, catchError } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-blog-detail-page',
@@ -41,6 +42,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
     RouterLink,
     ReactiveFormsModule,
     MatCheckboxModule,
+    TranslateModule,
   ],
   templateUrl: './blog-detail-page.component.html',
   styleUrl: './blog-detail-page.component.scss',

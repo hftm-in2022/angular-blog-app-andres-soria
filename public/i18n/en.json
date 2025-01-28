@@ -1,0 +1,34 @@
+{
+    "Language": "Language",
+    "ErrorPage": {
+        "Title": "Something went wrong",
+        "Message": "We couldn't process your request. Please try again later."
+    },
+    "GoBackButtonText": "Go back to overview",
+    "SideBar": {
+        "Overview": "Overview",
+        "DemoComponents": "Demo Components",
+        "SomeOption": "Some Option",
+        "ActionsTitle": "Actions",
+        "AddPost": "Add Post",
+        "Account": "Account",
+        "Logout": "Logout",
+        "Login": "Login"
+    },
+    "AddBlogPage": {
+        "Title": "Create a new blog",
+        "TitleLabel": "Title",
+        "TitlePlaceholder": "Enter the title of the blog",
+        "ContentLabel": "Content",
+        "ContentPlaceholder": "Enter the content of the blog",
+        "SubmitButtonText": "Publish post",
+        "ResetButtonText": "Reset input"
+    },
+    "BlogDetailPage": {
+        "LoginHint": "Sign in to write a comment.",
+        "AddCommentLabel": "Write a comment...",
+        "CreatedByMeLabel": "Created by you",
+        "CommentSectionTitle": "Comments",
+        "SubmitButtonText": "Publish comment"
+    }
+}
