@@ -6,6 +6,7 @@
   flex: 1;
   flex-direction: column;
   justify-content: center;
+  max-width: 60vw;
   background: #fff;
   padding: 4rem;
   border-radius: 0.75rem;
@@ -14,11 +15,16 @@
   .blog-header img {
     display: flex;
     justify-self: center;
-    width: 100%;
+    width: fit-content;
     height: auto;
     border-radius: 8px;
     object-fit: cover;
     margin: 2.5rem auto;
+  }
+
+  .content-section {
+    overflow-wrap: break-word;
+    word-wrap: break-word;
   }
 
   .title-section {
