@@ -5,6 +5,7 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatIconModule } from '@angular/material/icon';
 
 interface Model {
+  // besser type alias verwenden
   data: {
     id: number;
     title: string;

@@ -104,6 +104,7 @@ export class AddBlogPageComponent {
   }
 
   updateContentErrorMessage() {
+    // etwas zu kompiziert gelöst. warum nicht im template mit @if?
     if (this.title.hasError('required')) {
       this.contentErrorMessage.set('A post without content is not a post');
     } else if (this.title.hasError('minlength')) {
@@ -134,7 +135,7 @@ export class AddBlogPageComponent {
             this.loadingStateService.setLoadingState(false);
           }),
         )
-        .subscribe();
+        .subscribe(); // warum subscribe?
     }
   }
 }

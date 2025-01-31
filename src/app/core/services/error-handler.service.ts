@@ -13,7 +13,7 @@ export class AppErrorHandler implements ErrorHandler {
     const name = error?.name || 'UNKNOWN';
 
     this.postErrorData(message, stack);
-    this.router.navigate(['/error'], { queryParams: { name, message } });
+    this.router.navigate(['/error'], { queryParams: { name, message } }); // könnte sein, dass angular nicht mehr funktioniert so auch der Router...
   }
 
   private postErrorData(message: string, stack: string) {

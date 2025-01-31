@@ -80,7 +80,7 @@ export class BlogApiService {
    *
    * @param http - The HTTP client used to make requests.
    */
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) {} // 2x httpClient injected. einmal constructor injection und einmal inject function
 
   /**
    * Fetches all blog posts from the API.
@@ -124,7 +124,7 @@ export class BlogApiService {
       delay(this.demoDelay),
       switchMap((token) => {
         const headers = new HttpHeaders({
-          Authorization: `Bearer ${token}`,
+          Authorization: `Bearer ${token}`, // bearer Token kann durch den AuthInterceptor und secureRoutes definiert werden.
           'Content-Type': 'application/json',
         });
         return this.httpClient.post<Blog>(

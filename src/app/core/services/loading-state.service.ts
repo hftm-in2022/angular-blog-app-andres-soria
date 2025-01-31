@@ -38,7 +38,7 @@ export class LoadingStateService extends StateService<LoadingState> {
   }
 
   get isLoading() {
-    return this.initialState;
+    return this.initialState; // achtung! du gibst ein WritableSignal zurück!
   }
 
   setLoadingState(isLoading: boolean) {

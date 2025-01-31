@@ -19,7 +19,7 @@ export class ErrorPageComponent {
   }
 
   toOverview() {
-    window.location.href = '/overview';
+    window.location.href = '/overview'; // warum nicht router.navigate?
   }
 
   private getErrorCode(): string | undefined {

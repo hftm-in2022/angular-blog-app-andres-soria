@@ -44,7 +44,7 @@ export class StateService<T> {
    * @returns The current state.
    */
   protected get state(): T {
-    return this.state$.getValue();
+    return this.state$.getValue(); // getvalue sollte nicht verwendet werden. Besser ein Observable zurückgeben.
   }
 
   /**
@@ -60,3 +60,5 @@ export class StateService<T> {
     });
   }
 }
+
+// warum benötigt es diesen Wrapper, BehaviorSubject bietet doch schon alles nötige... und ist auch generic

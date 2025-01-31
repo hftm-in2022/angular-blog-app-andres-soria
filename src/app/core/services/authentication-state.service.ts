@@ -105,3 +105,5 @@ export class AuthenticationStateService extends StateService<LoginResponse> {
     this.securityService.logoff().subscribe();
   }
 }
+
+// warum den OidcSecurityService wrappen, es sind ja schon Observables?

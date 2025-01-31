@@ -48,13 +48,14 @@ export class SidebarComponent {
 
   @Input() isAuthenticated!: boolean | null;
   @Input() userData!: UserData | null;
-  @Output() authenticateEmitter = new EventEmitter<boolean>();
+  @Output() authenticateEmitter = new EventEmitter<boolean>(); // besser mit input und output signals arbeiten
   title = 'Angular Blog-App';
-  hasUserRoleOnly = true;
+  hasUserRoleOnly = true; // warum imperativ und nicht deklarativ?
   isLoading = this.loadingStateService.isLoading;
 
   constructor() {
     this.authenticationStateService.loginResponse$.subscribe(
+      // warum subscribe und nicht pipe und ein observable zurückgeben anstelle das Property zu setzen?
       (loginResponse) => {
         this.hasUserRoleOnly =
           hasRole('user', loginResponse.accessToken) &&
